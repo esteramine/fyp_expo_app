@@ -5,6 +5,10 @@ import { setContext } from '@apollo/client/link/context';
 
 import UserStorage from './src/utils/UserStorage';
 import { KeyNotExistError, TOKEN } from './src/utils/Constants';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { AuthContext, AuthProvider } from './src/context/auth';
+import LoginScreen from './src/screens/LoginScreen';
 
 const httpLink = createHttpLink({
     uri: 'https://huatm1fypserver.herokuapp.com/',
@@ -30,7 +34,15 @@ const client = new ApolloClient({
 export default function App() {
     return (
         <ApolloProvider client={client}>
-            <Text>Hi</Text>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <AuthProvider>
+                <AuthContext.Consumer>
+                  {() => {return (<Text>Testing</Text>)}}
+                </AuthContext.Consumer>
+              </AuthProvider>
+            </NavigationContainer>
+          </SafeAreaProvider>
         </ApolloProvider>
     );
 }
