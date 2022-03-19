@@ -4,9 +4,7 @@ import { Calendar } from 'react-native-calendars';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 
 import { CalendarHeight, Color, KeyNotExistError, PresetHeight } from '../utils/Constants';
-import EntryList from './EntryList';
 import { getCurrentDate } from '../utils/Functions';
-import { ScrollView } from 'react-native-gesture-handler';
 import UserStorage from '../utils/UserStorage';
 import { useMutation, useQuery } from '@apollo/client';
 import { FETCH_POSTS_QUERY, FETCH_USER_MONTH_POSTS_QUERY } from '../utils/graphql/queries';

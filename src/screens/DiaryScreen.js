@@ -9,7 +9,7 @@ import TotalPosts from '../components/TotalPosts';
 function DiaryScreen({ route, navigation }) {
 
   return (
-    <View style={{height: '100%', backgroundColor: 'white' }}>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
       <TotalPosts/>
       <Calendar />
       {/* <FloatingButton onAddEntry={() => navigation.navigate('Capture', { next:'AddEntry' })}/> */}
