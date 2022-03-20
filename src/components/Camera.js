@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Camera } from 'expo-camera';
 import { IconButton } from 'react-native-paper';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function CustomizedCamera() {
   const isFocused = useIsFocused();
+  const [focused, setFocused] = useState(true);
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -17,6 +19,24 @@ export default function CustomizedCamera() {
     const photo = await camera.takePictureAsync(options);
     navigation.navigate('CameraPreview', { image: photo.base64 });
   }
+
+  const pickImage = async() => {
+    setFocused(false);
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      base64: true,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setFocused(true);
+      navigation.navigate('Questionnaire', { base64Link: result.base64, review: true })
+    }
+    else {
+      setFocused(true);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -33,7 +53,7 @@ export default function CustomizedCamera() {
   }
   return (
     <View style={styles.container}>
-      {isFocused &&
+      {isFocused && focused &&
         <Camera
           style={styles.camera}
           type={type}
@@ -41,7 +61,7 @@ export default function CustomizedCamera() {
             camera = r
           }}
         >
-          <View style={styles.close}>
+          {/* <View style={styles.close}>
             <IconButton
               icon="close"
               color={'white'}
@@ -49,13 +69,13 @@ export default function CustomizedCamera() {
                 console.log('Pressed close');
               }}
             />
-          </View>
+          </View> */}
           <View style={styles.buttonContainer}>
             <IconButton
               icon="image"
               color='white'
               size={40}
-              onPress={() => console.log('hihi')}
+              onPress={pickImage}
             />
           </View>
           <View style={styles.buttonContainer}>
