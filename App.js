@@ -13,6 +13,7 @@ import SettingsScreen from './src/screens/SettingsScreen';
 import CustomizedCalendar from './src/components/Calendar';
 import LoginScreen from './src/screens/LoginScreen';
 import DiaryScreen from './src/screens/DiaryScreen';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const httpLink = createHttpLink({
   uri: 'https://huatm1fypserver.herokuapp.com/',
@@ -35,6 +36,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+const Stack = createStackNavigator();
+
 export default function App() {
   return (
     <ApolloProvider client={client}>
@@ -44,7 +47,26 @@ export default function App() {
             <AuthContext.Consumer>
               {({ user }) => {
                 console.log(user)
-                return (<DiaryScreen />)
+                return (
+                  <>
+                    {user ? (
+                      <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        {/* <Stack.Screen name="Tabs" component={Tabs} />
+                        <Stack.Screen name="AddEntry" component={AddEntryScreen} />
+                        <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} />
+                        <Stack.Screen name="PostDetail" component={PostDetailScreen} />
+                        <Stack.Screen name="EditPost" component={EditPostScreen} /> */}
+                        <Stack.Screen name="Settings" component={SettingsScreen} />
+                        <Stack.Screen name="Register" component={RegisterScreen} />
+                      </Stack.Navigator>
+                    ) : (
+                      <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name='Login' component={LoginScreen} />
+                        <Stack.Screen name="Register" component={RegisterScreen} />
+                      </Stack.Navigator>
+                    )}
+                  </>
+                )
               }}
             </AuthContext.Consumer>
           </AuthProvider>
