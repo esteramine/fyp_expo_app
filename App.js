@@ -13,6 +13,7 @@ import SettingsScreen from './src/screens/SettingsScreen';
 import CustomizedCalendar from './src/components/Calendar';
 import LoginScreen from './src/screens/LoginScreen';
 import DiaryScreen from './src/screens/DiaryScreen';
+import Tabs from './src/screens/Tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const httpLink = createHttpLink({
@@ -56,6 +57,7 @@ export default function App() {
                         <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} />
                         <Stack.Screen name="PostDetail" component={PostDetailScreen} />
                         <Stack.Screen name="EditPost" component={EditPostScreen} /> */}
+                        <Stack.Screen name="Tabs" component={Tabs} />
                         <Stack.Screen name="Settings" component={SettingsScreen} />
                         <Stack.Screen name="Register" component={RegisterScreen} />
                       </Stack.Navigator>

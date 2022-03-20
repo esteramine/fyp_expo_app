@@ -1,13 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import SearchScreen from './SearchScreen';
 import DiaryScreen from './DiaryScreen';
 import SettingsScreen from './SettingsScreen';
-import GalleryScreen from './GalleryScreen';
-import CaptureScreen from './CaptureScreen';
+// import CaptureScreen from './CaptureScreen';
 import { Color } from '../utils/Constants';
 import HomeStack from '../stacks/HomeStack';
+import RegisterScreen from './RegisterScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,9 +38,13 @@ function Tabs() {
                 headerShown: false
             })}
         >
-            <Tab.Screen name="Home" component={HomeStack} options={{unmountOnBlur: true}} />
+            {/* <Tab.Screen name="Home" component={HomeStack} options={{unmountOnBlur: true}} />
             <Tab.Screen name="Diary" component={DiaryScreen} />
             <Tab.Screen name="Capture" component={CaptureScreen} />
+            <Tab.Screen name="Settings" component={SettingsScreen} /> */}
+            <Tab.Screen name="Home" component={HomeStack} options={{unmountOnBlur: true}} />
+            <Tab.Screen name="Diary" component={DiaryScreen} />
+            <Tab.Screen name="Capture" component={RegisterScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     );
