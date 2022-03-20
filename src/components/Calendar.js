@@ -248,7 +248,6 @@ function CustomizedCalendar() {
                 }}
             />
 
-            {/* <EntryList date={selectedDate} /> */}
             <DayEntryList
                 posts={posts.filter(post => post.ateTime.substring(0, 10) == selectedDate)}
                 showModal={showModal}

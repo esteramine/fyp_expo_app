@@ -23,7 +23,6 @@ function TotalPosts() {
 
     useFocusEffect(
         useCallback(() => {
-            console.log('refetch user progress');
             refetch()
         }, [refetch])
     );

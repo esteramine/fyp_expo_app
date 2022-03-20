@@ -115,8 +115,6 @@ function PostDetailScreen({ route, navigation }) {
     const hideModal = () => setVisible(false);
     const [deletePost] = useMutation(DELETE_POST, {
         update(proxy, result) {
-            // refetch();
-            console.log('success')
             navigation.goBack();
         },
         variables: {
@@ -135,7 +133,6 @@ function PostDetailScreen({ route, navigation }) {
                     compact
                     style={styles.back}
                     onPress={() => {
-                        console.log('pressed back');
                         navigation.goBack();
                     }}
                 >

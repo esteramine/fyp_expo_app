@@ -97,8 +97,6 @@ function AddEntryScreen({ route, navigation }) {
       navigation.navigate('Diary', { update: true });
     },
     onError(err) {
-      // TODO: show required field errors on UI
-      console.log(err)
       setErrors(err.graphQLErrors[0].extensions.errors);
       setVisible(false);
     },
@@ -127,8 +125,7 @@ function AddEntryScreen({ route, navigation }) {
           compact
           style={styles.cancel}
           onPress={() => {
-            console.log('Pressed cancel');
-            navigation.navigate('Diary', { update: true });
+            navigation.goBack();
           }}
         >
           Cancel
