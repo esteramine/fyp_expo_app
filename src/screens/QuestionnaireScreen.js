@@ -6,7 +6,6 @@ import { Button, Modal, Portal, Provider } from 'react-native-paper';
 
 import Styles from '../styles/Styles';
 import { Color } from '../utils/Constants';
-import Tag from '../components/Tag';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useMutation } from '@apollo/client';
@@ -151,7 +150,7 @@ function QuestionnaireScreen({ route, navigation }) {
                         ))}
                     </View>
                 )}
-                <View style={Styles.container, { flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
+                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
                     <View style={{ alignItems: 'center' }}>
                         {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>}
                         <Image
