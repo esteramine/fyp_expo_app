@@ -1,62 +1,88 @@
-import React, { PureComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Camera } from 'expo-camera';
 import { IconButton } from 'react-native-paper';
-import { RNCamera } from 'react-native-camera';
-import RNFS from 'react-native-fs'
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: 'black',
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-});
-  
-class Camera extends PureComponent {
-  render() {
-    return (
-      <View style={styles.container}>
-        <RNCamera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          style={styles.preview}
-          captureAudio={false}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.off}
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-        />
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+export default function CustomizedCamera() {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+  return (
+    <View style={styles.container}>
+      <Camera style={styles.camera} type={type}>
+        <View style={styles.close}>
           <IconButton
-            icon="camera-iris"
+            icon="close"
             color={'white'}
-            size={40}
-            style={{margin: 20}}
-            onPress={this.takePicture.bind(this)}
+            onPress={() => {
+              console.log('Pressed close');
+            }}
           />
         </View>
-      </View>
-    );
-  }
+        <View style={styles.buttonContainer}>
+          <IconButton
+            icon="image"
+            color='white'
+            size={40}
+            onPress={() => console.log('hihi')}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.cameraButton}>
+            <IconButton
+              icon="camera-iris"
+              color={'white'}
+              size={40}
 
-  takePicture = async () => {
-    if (this.camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
-      const bs64link = await RNFS.readFile(data.uri, 'base64').then(res => { return res });
-      this.props.photoCaptured(bs64link);
-    };
-  };
+              onPress={() => console.log('take picture')}
+            />
+          </View>
+
+        </View>
+      </Camera >
+    </View >
+  );
 }
 
-export default Camera;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    flexDirection: 'row',
+    flex: 1,
+    width: '100%',
+    padding: 20,
+    justifyContent: 'space-between'
+  },
+  cameraButton: {
+    flex: 1,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  close: {
+    flex: 2,
+    position: 'absolute',
+    margin: 16,
+    top: 0,
+    left: 0,
+  },
+});

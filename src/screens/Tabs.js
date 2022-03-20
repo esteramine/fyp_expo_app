@@ -7,6 +7,7 @@ import SettingsScreen from './SettingsScreen';
 import { Color } from '../utils/Constants';
 import HomeStack from '../stacks/HomeStack';
 import RegisterScreen from './RegisterScreen';
+import ExpoCaptureScreen from './ExpoCaptureScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ function Tabs() {
             <Tab.Screen name="Settings" component={SettingsScreen} /> */}
             <Tab.Screen name="Home" component={HomeStack} options={{unmountOnBlur: true}} />
             <Tab.Screen name="Diary" component={DiaryScreen} />
-            <Tab.Screen name="Capture" component={RegisterScreen} />
+            <Tab.Screen name="Capture" component={ExpoCaptureScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     );
