@@ -6,7 +6,7 @@ import QuestionnaireScreen from '../screens/QuestionnaireScreen';
 
 const Stack = createStackNavigator();
 
-export default function ExpoCaptureScreen() {
+export default function CaptureStack() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Camera" component={Camera} />

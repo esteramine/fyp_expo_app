@@ -12,7 +12,8 @@ import RegisterScreen from './src/screens/RegisterScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import CustomizedCalendar from './src/components/Calendar';
 import LoginScreen from './src/screens/LoginScreen';
-import DiaryScreen from './src/screens/DiaryScreen';
+import PostDetailScreen from './src/screens/PostDetailScreen';
+import EditPostScreen from './src/screens/EditPostScreen';
 import Tabs from './src/screens/Tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
@@ -54,14 +55,11 @@ export default function App() {
                     <>
                       {user ? (
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
-                          {/* <Stack.Screen name="Tabs" component={Tabs} />
-                        <Stack.Screen name="AddEntry" component={AddEntryScreen} />
-                        <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} />
-                        <Stack.Screen name="PostDetail" component={PostDetailScreen} />
-                        <Stack.Screen name="EditPost" component={EditPostScreen} /> */}
                           <Stack.Screen name="Tabs" component={Tabs} />
-                          <Stack.Screen name="Settings" component={SettingsScreen} />
-                          <Stack.Screen name="Register" component={RegisterScreen} />
+                          {/* <Stack.Screen name="AddEntry" component={} />
+                          <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} /> */}
+                          <Stack.Screen name="PostDetail" component={PostDetailScreen} />
+                          <Stack.Screen name="EditPost" component={EditPostScreen} />
                         </Stack.Navigator>
                       ) : (
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
