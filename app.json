@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "fyp_expo_app",
+    "name": "Food!",
     "slug": "fyp_expo_app",
+    "description": "This is an app for users to record their meals and share their fancy food photos with others.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
