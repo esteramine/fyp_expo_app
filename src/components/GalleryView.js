@@ -1,6 +1,6 @@
-import React, { Component, createRef, useEffect, useRef } from 'react';
-import { Text, Image, Dimensions, ScrollView, StyleSheet, View } from 'react-native';
-import { Card, Portal, Provider } from 'react-native-paper';
+import React from 'react';
+import { Image, Dimensions, StyleSheet } from 'react-native';
+import { Card, Provider } from 'react-native-paper';
 import MasonryList from '@react-native-seoul/masonry-list';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

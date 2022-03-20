@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, FAB } from 'react-native-paper';
-import { launchImageLibrary } from 'react-native-image-picker/src';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -48,32 +47,6 @@ function GalleryScreen({ route, navigation }) {
   }, [loading])
 
   var base64Link = '';
-  const navigate = () => navigation.navigate('Questionnaire', { base64Link, review: true });
-
-  const launchLibrary = () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-      includeBase64: true
-    };
-    launchImageLibrary(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        base64Link = response.assets[0].base64;
-        navigation.navigate('Questionnaire', { base64Link, review: true })
-      }
-    });
-  }
 
   return (
     <View style={{ height: '100%', backgroundColor: 'white' }}>
