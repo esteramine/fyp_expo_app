@@ -2,10 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import { IconButton } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CustomizedCamera() {
+  const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  var camera = null;
+
+  const __takePicture = async() => {
+    if (!camera) return;
+    const options = { quality: 0.5, base64: true };
+    const photo = await camera.takePictureAsync(options);
+    navigation.navigate('CameraPreview', { image: photo.base64 });
+  }
 
   useEffect(() => {
     (async () => {
@@ -22,7 +32,13 @@ export default function CustomizedCamera() {
   }
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
+      <Camera
+        style={styles.camera}
+        type={type}
+        ref={(r) => {
+          camera = r
+        }}
+      >
         <View style={styles.close}>
           <IconButton
             icon="close"
@@ -46,11 +62,9 @@ export default function CustomizedCamera() {
               icon="camera-iris"
               color={'white'}
               size={40}
-
-              onPress={() => console.log('take picture')}
+              onPress={__takePicture}
             />
           </View>
-
         </View>
       </Camera >
     </View >

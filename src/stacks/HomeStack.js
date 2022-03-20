@@ -5,7 +5,7 @@ import GalleryScreen from '../screens/GalleryScreen';
 import PostDetailScreen from '../screens/PostDetailScreen';
 import EditPostScreen from '../screens/EditPostScreen';
 import QuestionnaireScreen from '../screens/QuestionnaireScreen';
-import ExpoCaptureScreen from '../screens/ExpoCaptureScreen';
+import ExpoCaptureScreen from './CaptureStack';
 // import CaptureScreen from '../screens/CaptureScreen';
 
 

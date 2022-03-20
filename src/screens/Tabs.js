@@ -7,7 +7,7 @@ import SettingsScreen from './SettingsScreen';
 import { Color } from '../utils/Constants';
 import HomeStack from '../stacks/HomeStack';
 import RegisterScreen from './RegisterScreen';
-import ExpoCaptureScreen from './ExpoCaptureScreen';
+import ExpoCaptureScreen from '../stacks/CaptureStack';
 
 const Tab = createBottomTabNavigator();
 
