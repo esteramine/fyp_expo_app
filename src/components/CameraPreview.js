@@ -24,27 +24,29 @@ const styles = StyleSheet.create({
   },
 });
 
-class CameraPreview extends PureComponent {
-  render() {
-    const image = this.props.route.params.image;
-    const uri = "data:image/png;base64," + image;
+export default function CameraPreview({ navigation }) {
 
-    return (
-      <View style={styles.container}>
-        <Image style={styles.preview} source={{ uri: uri }} />
-        <View style={styles.buttonContainer}>
-          <IconButton
-            icon="arrow-left"
-            color={'white'}
-            size={40}
-          />
-          <IconButton
-            icon="arrow-right"
-            color={'white'}
-            size={40}
-          />
-        </View>
-        {/* <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+  const image = this.props.route.params.image;
+  const uri = "data:image/png;base64," + image;
+
+  return (
+    <View style={styles.container}>
+      <Image style={styles.preview} source={{ uri: uri }} />
+      <View style={styles.buttonContainer}>
+        <IconButton
+          icon="arrow-left"
+          color={'white'}
+          size={40}
+          onPress={() => navigation.goBack()}
+        />
+        <IconButton
+          icon="arrow-right"
+          color={'white'}
+          size={40}
+          onPress={() => navigation.navigate('Home')}
+        />
+      </View>
+      {/* <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <IconButton
             icon="camera-iris"
             color={'white'}
@@ -53,9 +55,7 @@ class CameraPreview extends PureComponent {
             style={{margin: 20}}
           />
         </View> */}
-      </View>
-    );
-  }
-}
+    </View>
+  );
 
-export default CameraPreview;
+}

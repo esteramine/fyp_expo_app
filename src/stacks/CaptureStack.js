@@ -10,6 +10,7 @@ export default function ExpoCaptureScreen() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Camera" component={Camera} />
             <Stack.Screen name="CameraPreview" component={CameraPreview} />
+            
         </Stack.Navigator>
     );
 }

@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import { IconButton } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 export default function CustomizedCamera() {
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   var camera = null;
 
-  const __takePicture = async() => {
+  const __takePicture = async () => {
     if (!camera) return;
     const options = { quality: 0.5, base64: true };
     const photo = await camera.takePictureAsync(options);
@@ -32,41 +33,42 @@ export default function CustomizedCamera() {
   }
   return (
     <View style={styles.container}>
-      <Camera
-        style={styles.camera}
-        type={type}
-        ref={(r) => {
-          camera = r
-        }}
-      >
-        <View style={styles.close}>
-          <IconButton
-            icon="close"
-            color={'white'}
-            onPress={() => {
-              console.log('Pressed close');
-            }}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <IconButton
-            icon="image"
-            color='white'
-            size={40}
-            onPress={() => console.log('hihi')}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.cameraButton}>
+      {isFocused &&
+        <Camera
+          style={styles.camera}
+          type={type}
+          ref={(r) => {
+            camera = r
+          }}
+        >
+          <View style={styles.close}>
             <IconButton
-              icon="camera-iris"
+              icon="close"
               color={'white'}
-              size={40}
-              onPress={__takePicture}
+              onPress={() => {
+                console.log('Pressed close');
+              }}
             />
           </View>
-        </View>
-      </Camera >
+          <View style={styles.buttonContainer}>
+            <IconButton
+              icon="image"
+              color='white'
+              size={40}
+              onPress={() => console.log('hihi')}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <View style={styles.cameraButton}>
+              <IconButton
+                icon="camera-iris"
+                color={'white'}
+                size={40}
+                onPress={__takePicture}
+              />
+            </View>
+          </View>
+        </Camera >}
     </View >
   );
 }
