@@ -13,6 +13,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_POST, EDIT_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
     cancel: {
@@ -105,7 +106,7 @@ function EditPostScreen({ route, navigation }) {
     const [visible, setVisible] = useState(false);
 
     return (
-        <View style={{ backgroundColor: 'white' }}>
+        <SafeAreaView style={{ backgroundColor: 'white' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
                     color='black'
@@ -156,7 +157,7 @@ function EditPostScreen({ route, navigation }) {
                         ))}
                     </View>
                 )}
-                <View style={Styles.container, { flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
+                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
                     <View style={{ alignItems: 'center' }}>
                         {/* {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>} */}
                         <Image
@@ -229,7 +230,7 @@ function EditPostScreen({ route, navigation }) {
                     </Modal>
                 </Portal>
             </Provider>
-        </View>
+        </SafeAreaView>
 
     );
 };

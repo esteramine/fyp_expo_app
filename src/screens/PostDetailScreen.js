@@ -15,6 +15,7 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 import { COMMENT_POST, DELETE_POST, DELETE_POST_COMMENT, LIKE_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
     back: {
@@ -125,7 +126,7 @@ function PostDetailScreen({ route, navigation }) {
 
     return (
         // <Text> { data } </Text>
-        <View style={{ backgroundColor: 'white', flex: 1 }}>
+        <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
                     color='black'
@@ -285,7 +286,7 @@ function PostDetailScreen({ route, navigation }) {
                     </Modal>
                 </Portal>
             </Provider>
-        </View >
+        </SafeAreaView>
     );
 };
 

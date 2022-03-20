@@ -39,10 +39,6 @@ function Tabs() {
                 headerShown: false
             })}
         >
-            {/* <Tab.Screen name="Home" component={HomeStack} options={{unmountOnBlur: true}} />
-            <Tab.Screen name="Diary" component={DiaryScreen} />
-            <Tab.Screen name="Capture" component={CaptureScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} /> */}
             <Tab.Screen name="Home" component={HomeStack} options={{unmountOnBlur: true}} />
             <Tab.Screen name="Diary" component={DiaryStack} />
             <Tab.Screen name="Capture" component={CaptureStack} />

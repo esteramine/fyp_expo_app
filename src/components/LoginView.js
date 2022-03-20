@@ -6,6 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { AuthContext } from '../context/auth';
 import { Color } from '../utils/Constants';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const styles = StyleSheet.create({
     text: {
@@ -62,7 +63,7 @@ function LoginView() {
     })
 
     return (
-        <View style={{ justifyContent: 'center', flex: 1 }}>
+        <SafeAreaView style={{ justifyContent: 'center', flex: 1 }}>
             <Text style={styles.text}>
                 Hi there.
             </Text>
@@ -110,7 +111,7 @@ function LoginView() {
                 </View>
             )}
             <View style={{ marginBottom: 100 }} />
-        </View>
+        </SafeAreaView>
     );
 };
 

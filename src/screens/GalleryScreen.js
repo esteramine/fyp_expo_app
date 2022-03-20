@@ -12,6 +12,7 @@ import SimpleSearchbar from '../components/SimpleSearchbar';
 import SearchResultItem from '../components/SearchResultItem';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TotalPosts from '../components/TotalPosts';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   fab: {
@@ -49,7 +50,7 @@ function GalleryScreen({ route, navigation }) {
   var base64Link = '';
 
   return (
-    <View style={{ height: '100%', backgroundColor: 'white' }}>
+    <SafeAreaView style={{ height: '100%', backgroundColor: 'white' }}>
       <TotalPosts/>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {searchMode &&
@@ -89,7 +90,7 @@ function GalleryScreen({ route, navigation }) {
         // onPress={() => navigation.navigate('Questionnaire', { base64Link: '', review: true })}
         onPress={launchLibrary}
       /> */}
-    </View>
+    </SafeAreaView>
   );
 };
 

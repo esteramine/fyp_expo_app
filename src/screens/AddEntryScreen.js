@@ -9,6 +9,7 @@ import { FETCH_USER_MONTH_POSTS_QUERY } from '../utils/graphql/queries';
 import { Color } from '../utils/Constants';
 import CircularProgress from '../components/CircularProgress';
 import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   cancel: {
@@ -117,7 +118,7 @@ function AddEntryScreen({ route, navigation }) {
   const [visible, setVisible] = useState(false);
 
   return (
-    <View style={{ backgroundColor: 'white', flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
         <Button
           color='black'
@@ -172,7 +173,7 @@ function AddEntryScreen({ route, navigation }) {
           </Modal>
         </Portal>
       </Provider>
-    </View >
+    </SafeAreaView>
   );
 };
 

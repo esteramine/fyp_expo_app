@@ -12,6 +12,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
     cancel: {
@@ -119,7 +120,7 @@ function QuestionnaireScreen({ route, navigation }) {
 
 
     return (
-        <View style={{ backgroundColor: 'white' }}>
+        <SafeAreaView style={{ backgroundColor: 'white' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
                     color='black'
@@ -300,7 +301,7 @@ function QuestionnaireScreen({ route, navigation }) {
                     </Modal>
                 </Portal>
             </Provider>
-        </View>
+        </SafeAreaView>
 
     );
 };

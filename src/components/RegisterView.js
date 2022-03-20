@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../context/auth';
 import { Color } from '../utils/Constants';
 
@@ -65,7 +66,7 @@ function RegisterView() {
     });
 
     return (
-        <View style={{justifyContent: 'center', flex: 1}}>
+        <SafeAreaView style={{justifyContent: 'center', flex: 1}}>
             <Text style={styles.text}>
                 Sign up.
             </Text>
@@ -122,7 +123,7 @@ function RegisterView() {
                 </View>
             )}
             <View style={{marginBottom: 100}}/>
-        </View>
+        </SafeAreaView>
     );
 };
 
