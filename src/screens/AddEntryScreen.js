@@ -10,6 +10,7 @@ import { Color } from '../utils/Constants';
 import CircularProgress from '../components/CircularProgress';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackActions } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   cancel: {
@@ -95,6 +96,7 @@ function AddEntryScreen({ route, navigation }) {
       //     month: currMonth
       //   }
       // });
+      navigation.dispatch(StackActions.popToTop());
       navigation.navigate('Diary', { update: true });
     },
     onError(err) {
