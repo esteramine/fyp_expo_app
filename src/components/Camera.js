@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { Camera } from 'expo-camera';
 import { IconButton } from 'react-native-paper';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -20,7 +20,7 @@ export default function CustomizedCamera() {
     navigation.navigate('CameraPreview', { image: photo.base64 });
   }
 
-  const pickImage = async() => {
+  const pickImage = async () => {
     setFocused(false);
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: 'row',
     flex: 1,
-    width: '100%',
+    // width: '100%',
     padding: 20,
     justifyContent: 'space-between'
   },
