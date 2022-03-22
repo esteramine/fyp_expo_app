@@ -6,13 +6,14 @@ import { Button, Modal, Portal, Provider } from 'react-native-paper';
 
 import Styles from '../styles/Styles';
 import { Color } from '../utils/Constants';
-import DatePicker from 'react-native-date-picker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackActions } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     cancel: {
@@ -95,6 +96,7 @@ function QuestionnaireScreen({ route, navigation }) {
                 proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: { getPosts: newData } });
                 // console.log(newData);
             }
+            navigation.dispatch(StackActions.popToTop());
             navigation.navigate('Home');
         },
         onError(err) {
@@ -111,13 +113,11 @@ function QuestionnaireScreen({ route, navigation }) {
             location,
             price: price.trim() === '' ? '' : (price + ' HKD'),
             review,
-            tags: tags.trim() === '' ? [] : tags.split(/\s+/),
+            tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
             image,
             public: publicMode
         }
     });
-
-
 
     return (
         <SafeAreaView style={{ backgroundColor: 'white' }}>
@@ -171,9 +171,9 @@ function QuestionnaireScreen({ route, navigation }) {
                                 <Text style={{ marginRight: 10, color: Color.gray500 }}>{ateTime.toDateString()}</Text>
                                 <Icon name='edit' size={25} color={Color.gray500} />
                             </TouchableOpacity>
-                            <DatePicker
-                                modal
-                                open={datePickerOpen}
+                            <DateTimePickerModal
+                                isVisible={datePickerOpen}
+                                locale="zh_HK"
                                 date={ateTime}
                                 mode={'date'}
                                 maximumDate={new Date()}
@@ -205,12 +205,16 @@ function QuestionnaireScreen({ route, navigation }) {
                             onChangeText={setLocation}
                             value={location}
                         />
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Price'
-                            onChangeText={setPrice}
-                            value={price}
-                        />
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder='Price'
+                                keyboardType='numeric'
+                                onChangeText={setPrice}
+                                value={price}
+                            />
+                            <Text style={{ marginLeft: 5 }}> HKD</Text>
+                        </View>
                         <TextInput
                             style={{ borderWidth: 1, borderColor: Color.gray500, paddingBottom: 40, paddingHorizontal: 10, marginVertical: 10 }}
                             placeholder='Review'
@@ -235,9 +239,9 @@ function QuestionnaireScreen({ route, navigation }) {
             </ScrollView>
             <Provider>
                 <Portal>
-                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{...styles.containerStyle, backgroundColor: isLoading? 'transparent': 'white'}}>
+                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ ...styles.containerStyle, backgroundColor: isLoading ? 'transparent' : 'white' }}>
                         {isLoading == true ? (
-                            <CircularProgress/>
+                            <CircularProgress />
                         ) : (
                             <>
                                 <Text style={{ fontSize: 15, color: Color.gray900 }}>You want this post to be published</Text>
