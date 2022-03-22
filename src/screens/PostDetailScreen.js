@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FIcon from 'react-native-vector-icons/FontAwesome';
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         margin: 20,
         borderRadius: 5,
+    },
+    container: {
+        flex: 1,
     }
 });
 
@@ -126,6 +129,11 @@ function PostDetailScreen({ route, navigation }) {
 
     return (
         // <Text> { data } </Text>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
@@ -287,6 +295,8 @@ function PostDetailScreen({ route, navigation }) {
                 </Portal>
             </Provider>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 };
 

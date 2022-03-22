@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { AirbnbRating } from 'react-native-elements';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
@@ -34,6 +34,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         paddingVertical: 2
     },
+    inputBorder: {
+        borderWidth: 1, 
+        borderColor: Color.gray500, 
+        paddingHorizontal: 6,
+        paddingVertical: 4, 
+        marginVertical: 10
+    },
     inputTitle: {
         fontSize: 24,
         color: Color.gray900,
@@ -53,6 +60,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         color: Color.errorText,
+    },
+    container: {
+        flex: 1,
     }
 });
 
@@ -120,6 +130,11 @@ function QuestionnaireScreen({ route, navigation }) {
     });
 
     return (
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={{ backgroundColor: 'white' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
@@ -234,9 +249,9 @@ function QuestionnaireScreen({ route, navigation }) {
                             <Text style={{ marginLeft: 5 }}> HKD</Text>
                         </View>
                         <TextInput
-                            style={{ borderWidth: 1, borderColor: Color.gray500, paddingBottom: 40, paddingHorizontal: 10, marginVertical: 10 }}
+                            style={styles.inputBorder}
                             placeholder='Review'
-                            multiline={true}
+                            // multiline={true}
                             onChangeText={setReview}
                             value={review}
                         />
@@ -244,9 +259,9 @@ function QuestionnaireScreen({ route, navigation }) {
                             <Text style={{ marginRight: 5 }}>Tags</Text>
                         </View>
                         <TextInput
-                            style={{ borderWidth: 1, borderColor: Color.gray500, paddingBottom: 40, paddingHorizontal: 10, marginVertical: 10 }}
+                            style={styles.inputBorder}
                             placeholder='Please separate the tags with spaces.'
-                            multiline={true}
+                            // multiline={true}
                             onChangeText={setTags}
                             value={tags}
                         />
@@ -324,6 +339,8 @@ function QuestionnaireScreen({ route, navigation }) {
                 </Portal>
             </Provider>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
 
     );
 };
