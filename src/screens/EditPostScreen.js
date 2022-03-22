@@ -6,9 +6,6 @@ import { Button, Modal, Portal, Provider } from 'react-native-paper';
 
 import Styles from '../styles/Styles';
 import { Color } from '../utils/Constants';
-import Tag from '../components/Tag';
-import DatePicker from 'react-native-date-picker';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST, EDIT_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
@@ -97,7 +94,7 @@ function EditPostScreen({ route, navigation }) {
             location,
             price: price.trim() === '' ? '' : (price + ' HKD'),
             review,
-            tags: tags.trim() === '' ? [] : tags.split(/\s+/),
+            tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
             image: post.image,
             public: publicMode
         }
@@ -137,7 +134,7 @@ function EditPostScreen({ route, navigation }) {
                                     location,
                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                     review,
-                                    tags: tags.trim() === '' ? [] : tags.split(/\s+/),
+                                    tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
                                     image: post.image,
                                     public: publicMode
                                 }
@@ -195,12 +192,16 @@ function EditPostScreen({ route, navigation }) {
                             onChangeText={setLocation}
                             value={location}
                         />
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Price'
-                            onChangeText={setPrice}
-                            value={price}
-                        />
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder='Price'
+                                keyboardType='numeric'
+                                onChangeText={setPrice}
+                                value={price}
+                            />
+                            <Text style={{ marginLeft: 5 }}> HKD</Text>
+                        </View>
                         <TextInput
                             style={{ borderWidth: 1, borderColor: Color.gray500, paddingBottom: 40, paddingHorizontal: 10, marginVertical: 10 }}
                             placeholder='Review'

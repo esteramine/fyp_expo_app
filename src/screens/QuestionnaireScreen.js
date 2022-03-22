@@ -260,7 +260,7 @@ function QuestionnaireScreen({ route, navigation }) {
                                                     location,
                                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                                     review,
-                                                    tags: tags.trim() === '' ? [] : tags.split(/\s+/),
+                                                    tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
                                                     image,
                                                     public: false
                                                 }
@@ -286,7 +286,7 @@ function QuestionnaireScreen({ route, navigation }) {
                                                     location,
                                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                                     review,
-                                                    tags: tags.trim() === '' ? [] : tags.split(/\s+/),
+                                                    tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
                                                     image,
                                                     public: true
                                                 }
