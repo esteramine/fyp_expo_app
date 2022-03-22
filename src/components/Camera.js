@@ -71,14 +71,6 @@ export default function CustomizedCamera() {
             />
           </View> */}
           <View style={styles.buttonContainer}>
-            <IconButton
-              icon="image"
-              color='white'
-              size={40}
-              onPress={pickImage}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
             <View style={styles.cameraButton}>
               <IconButton
                 icon="camera-iris"
@@ -87,6 +79,14 @@ export default function CustomizedCamera() {
                 onPress={__takePicture}
               />
             </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <IconButton
+              icon="image"
+              color='white'
+              size={40}
+              onPress={pickImage}
+            />
           </View>
         </Camera >}
     </View >
