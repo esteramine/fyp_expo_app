@@ -68,7 +68,7 @@ function DayEntryList({ posts, showModal, deletePost, loading }) {
                             <List.Item
                                 key={e.id}
                                 title={e.foodName}
-                                description={e.ateTime.substring(11, 16)}
+                                description={new Date(e.ateTime).toLocaleTimeString().substring(0,5)}
                                 onPress={() => navigation.navigate('PostDetail', { data: e })}
                                 onLongPress={() => {
                                     showModal();
