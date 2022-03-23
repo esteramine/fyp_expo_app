@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../context/auth';
@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         color: Color.errorText,
+    },
+    container: {
+        flex: 1,
     }
 });
 
@@ -66,6 +69,11 @@ function RegisterView() {
     });
 
     return (
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={{justifyContent: 'center', flex: 1}}>
             <Text style={styles.text}>
                 Sign up.
@@ -122,8 +130,10 @@ function RegisterView() {
                     ))}
                 </View>
             )}
-            <View style={{marginBottom: 100}}/>
+            <View style={{marginBottom: 0}}/>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 };
 

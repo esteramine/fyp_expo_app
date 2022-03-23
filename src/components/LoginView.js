@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { AuthContext } from '../context/auth';
 import { Color } from '../utils/Constants';
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         color: Color.errorText,
+    },
+    container: {
+        flex: 1,
     }
 });
 
@@ -63,6 +66,11 @@ function LoginView() {
     })
 
     return (
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={{ justifyContent: 'center', flex: 1 }}>
             <Text style={styles.text}>
                 Hi there.
@@ -110,8 +118,10 @@ function LoginView() {
                     ))}
                 </View>
             )}
-            <View style={{ marginBottom: 100 }} />
+            <View style={{ marginBottom: 0 }} />
         </SafeAreaView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 };
 
