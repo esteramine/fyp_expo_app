@@ -176,7 +176,7 @@ function QuestionnaireScreen({ route, navigation }) {
                     Save
                 </Button>
             </View>
-            <ScrollView style={{ marginTop: 50, marginBottom: 60 }}>
+            <ScrollView style={{ marginTop: 50 }}>
                 {Object.keys(errors).length > 0 && (
                     <View style={styles.errorBox}>
                         {Object.values(errors).map(error => (
@@ -184,7 +184,7 @@ function QuestionnaireScreen({ route, navigation }) {
                         ))}
                     </View>
                 )}
-                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
+                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 50 }}>
                     <View style={{ alignItems: 'center' }}>
                         {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>}
                         <Image
