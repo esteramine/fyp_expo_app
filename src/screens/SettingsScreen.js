@@ -13,10 +13,10 @@ function SettingsScreen() {
     <SafeAreaView style={{ flex: 1, alignItems: 'center', backgroundColor: 'whitesmoke' }}>
       <View style={{ width: '100%', backgroundColor: 'white' }}>
         <TotalPosts />
-        <View style={{ flexDirection: 'row', alignItems: 'center', borderColor: Color.gray300, borderTopWidth: 1, borderBottomWidth: 1, padding: 20 }}>
+        { context.user && (<View style={{ flexDirection: 'row', alignItems: 'center', borderColor: Color.gray300, borderTopWidth: 1, borderBottomWidth: 1, padding: 20 }}>
           <EvilIcons name='user' size={100} color={Color.gray900} />
           <Text style={{ color: Color.gray900, fontSize: 25, marginLeft: 10 }}>{context.user.username}</Text>
-        </View>
+        </View>)}
         <Button mode="contained" onPress={context.logout} color={Color.green300} style={{ padding: 5 }}>
           Logout
         </Button>
