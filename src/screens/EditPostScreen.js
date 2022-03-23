@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
 import { AirbnbRating } from 'react-native-elements';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import Styles from '../styles/Styles';
 import { Color } from '../utils/Constants';
@@ -146,7 +147,7 @@ function EditPostScreen({ route, navigation }) {
                     Save
                 </Button>
             </View>
-            <ScrollView style={{ marginTop: 50, marginBottom: 60 }}>
+            <ScrollView style={{ marginTop: 50 }}>
                 {Object.keys(errors).length > 0 && (
                     <View style={styles.errorBox}>
                         {Object.values(errors).map(error => (
@@ -154,7 +155,7 @@ function EditPostScreen({ route, navigation }) {
                         ))}
                     </View>
                 )}
-                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
+                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 50 }}>
                     <View style={{ alignItems: 'center' }}>
                         {/* {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>} */}
                         <Image
@@ -171,6 +172,25 @@ function EditPostScreen({ route, navigation }) {
                         />
 
                         <Text style={{ marginRight: 10, color: Color.gray500 }}>{ateTime.toDateString()}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 5 }}>
+                            <Text>Audience:  </Text>
+                            <TouchableOpacity
+                                style={{ padding: 10, backgroundColor: publicMode? Color.green300:'transparent', borderRadius: 10 }}
+                                onPress={() => {
+                                    setPublicMode(true);
+                                }}
+                            >
+                                <MaterialIcon name='public' size={30} color={Color.gray900} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{ padding: 10, backgroundColor: !publicMode? Color.green300:'transparent', borderRadius: 10 }}
+                                onPress={() => {
+                                    setPublicMode(false);
+                                }}
+                            >
+                                <MaterialIcon name='lock' size={30} color={Color.gray900} />
+                            </TouchableOpacity>
+                        </View>
 
                         <View style={{ backgroundColor: Color.gray900, height: 1, width: '100%', marginVertical: 10 }}></View>
                         <Text style={{ color: Color.gray900, fontWeight: '600', marginTop: 5, fontSize: 18 }}>Optional Fields</Text>
