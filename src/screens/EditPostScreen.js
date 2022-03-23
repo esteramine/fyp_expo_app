@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { AirbnbRating } from 'react-native-elements';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         color: Color.errorText,
+    },
+    container: {
+        flex: 1,
     }
 });
 
@@ -104,6 +107,11 @@ function EditPostScreen({ route, navigation }) {
     const [visible, setVisible] = useState(false);
 
     return (
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={{ backgroundColor: 'white' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
@@ -252,6 +260,8 @@ function EditPostScreen({ route, navigation }) {
                 </Portal>
             </Provider>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
 
     );
 };
