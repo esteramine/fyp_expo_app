@@ -146,7 +146,7 @@ function EditPostScreen({ route, navigation }) {
                     Save
                 </Button>
             </View>
-            <ScrollView style={{ marginTop: 50 }}>
+            <ScrollView style={{ marginTop: 50, marginBottom: 60 }}>
                 {Object.keys(errors).length > 0 && (
                     <View style={styles.errorBox}>
                         {Object.values(errors).map(error => (
