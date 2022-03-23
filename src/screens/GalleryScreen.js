@@ -73,7 +73,7 @@ function GalleryScreen({ route, navigation }) {
       {!isLoading && (
         <>
           {searchMode && searchResult.length > 0 && (<View>{searchResult.map(post => <SearchResultItem key={post.id} post={post} />)}</View>)}
-          {!searchMode && <GalleryView
+          {!searchMode && posts.length!=0 && <GalleryView
             onCardPressed={(data) =>
               navigation.navigate('PostDetail', { data })
             }
