@@ -153,25 +153,7 @@ function QuestionnaireScreen({ route, navigation }) {
                     uppercase={false}
                     compact
                     style={styles.save}
-                    onPress={() => {
-                        addPost({
-                            variables: {
-                                foodName,
-                                ateTime: ateTime.toISOString(),
-                                completion,
-                                rating: rating > 5 ? '' : rating,
-                                restaurantName,
-                                location,
-                                price: price.trim() === '' ? '' : (price + ' HKD'),
-                                review,
-                                tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                image,
-                                public: true
-                            }
-                        });
-                        setIsLoading(true);
-                        setVisible(true);
-                    }}
+                    onPress={showModal}
                 >
                     Save
                 </Button>
