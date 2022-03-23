@@ -61,27 +61,29 @@ function CustomizedCalendar() {
         notifyOnNetworkStatusChange: true,
     });
 
-    useEffect(()=> {
+    useEffect(() => {
         refetch();
     });
 
     useEffect(() => {
         if (data) {
-            setPosts(data.getUserMonthPosts);
-            const markedDatesObj = {};
-            var iterateDate = '';
-            for (let post of data.getUserMonthPosts) {
-                const currDate = post.ateTime.substring(0, 10);
-                if (iterateDate == currDate) {
-                    const dotsList = markedDatesObj[currDate].dots;
-                    dotsList.push({ ...breakfast, key: dotsList.length });
+            if (data.getUserMonthPosts) {
+                setPosts(data.getUserMonthPosts);
+                const markedDatesObj = {};
+                var iterateDate = '';
+                for (let post of data.getUserMonthPosts) {
+                    const currDate = post.ateTime.substring(0, 10);
+                    if (iterateDate == currDate) {
+                        const dotsList = markedDatesObj[currDate].dots;
+                        dotsList.push({ ...breakfast, key: dotsList.length });
+                    }
+                    else {
+                        markedDatesObj[currDate] = { dots: [{ ...breakfast, key: 0 }], marked: true };
+                    }
+                    iterateDate = currDate;
                 }
-                else {
-                    markedDatesObj[currDate] = { dots: [{ ...breakfast, key: 0 }], marked: true };
-                }
-                iterateDate = currDate;
+                setMarkedDates({ ...markedDates, ...markedDatesObj });
             }
-            setMarkedDates({...markedDates, ...markedDatesObj});
         }
         if (!loading) {
             setIsLoading(false);
@@ -91,7 +93,7 @@ function CustomizedCalendar() {
 
     const [deletePost, { }] = useMutation(DELETE_POST, {
         update(proxy, result) {
-            setPosts(posts.filter(post=> post.id !== deletePostId));
+            setPosts(posts.filter(post => post.id !== deletePostId));
             const newDotsList = markedDates[selectedDate].dots;
             newDotsList.pop();
             setMarkedDates({
@@ -99,7 +101,7 @@ function CustomizedCalendar() {
                 [selectedDate]: { ...markedDates[selectedDate], dots: newDotsList }
             });
             const currYear = (new Date(selectedDate).getFullYear()).toString();
-            const currMonth = (new Date(selectedDate).getMonth()+1).toString();
+            const currMonth = (new Date(selectedDate).getMonth() + 1).toString();
 
             const data = proxy.readQuery({
                 query: FETCH_USER_MONTH_POSTS_QUERY,
@@ -108,9 +110,9 @@ function CustomizedCalendar() {
                     month: currMonth
                 }
             });
-            const newData = data.getUserMonthPosts.filter(post=> post.id!==deletePostId);
-            proxy.writeQuery({ 
-                query: FETCH_USER_MONTH_POSTS_QUERY, 
+            const newData = data.getUserMonthPosts.filter(post => post.id !== deletePostId);
+            proxy.writeQuery({
+                query: FETCH_USER_MONTH_POSTS_QUERY,
                 data: { getUserMonthPosts: newData },
                 variables: {
                     year: currYear,
@@ -118,9 +120,9 @@ function CustomizedCalendar() {
                 }
             });
 
-            const allPosts = proxy.readQuery({query: FETCH_POSTS_QUERY});
-            const afterDeletedPosts = allPosts.getPosts.filter(post=> post.id!==deletePostId);
-            proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: { getPosts: afterDeletedPosts } });      
+            const allPosts = proxy.readQuery({ query: FETCH_POSTS_QUERY });
+            const afterDeletedPosts = allPosts.getPosts.filter(post => post.id !== deletePostId);
+            proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: { getPosts: afterDeletedPosts } });
         },
         variables: {
             postId: deletePostId
