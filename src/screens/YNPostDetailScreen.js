@@ -12,7 +12,7 @@ import Tag from '../components/Tag';
 import moment from 'moment';
 import { AuthContext } from '../context/auth';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { COMMENT_POST, DELETE_POST, DELETE_POST_COMMENT, LIKE_POST } from '../utils/graphql/mutations';
+import { COMMENT_POST, DELETE_POST, DELETE_POST_COMMENT, EDIT_POST, LIKE_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -123,6 +123,30 @@ function YNPostDetailScreen({ route, navigation }) {
         }
     });
 
+    // completion
+    const [completion, setCompletion] = useState(post.completion);
+    const postInput = {
+        foodName: post.foodName,
+        ateTime: post.ateTime,
+        rating: post.rating,
+        restaurantName: post.restaurantName,
+        location: post.location,
+        price: post.price,
+        review: post.review,
+        tags: post.tags,
+        image: post.image,
+        public: post.public
+    };
+    const [editPost] = useMutation(EDIT_POST, {
+        onError(err) {
+            // TODO: show required field errors on UI
+            console.log(err);
+        },
+        variables: {
+            postId: post.id,
+            postInput
+        }
+    });
 
     return (
         // <Text> { data } </Text>
@@ -164,6 +188,39 @@ function YNPostDetailScreen({ route, navigation }) {
             </View>
             <ScrollView style={{ marginTop: 50 }}>
                 <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
+                    {new Date(post.ateTime).toDateString() == (new Date()).toDateString() && completion == '' && <View style={{ paddingHorizontal: 20, alignItems: 'center', marginVertical: 5 }}>
+                        <Text style={{ fontSize: 25, color: Color.gray900, fontWeight: 'bold' }}>Did you finish your meal?</Text>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
+                            <Button
+                                mode={completion == 'yes' ? "contained" : "text"}
+                                color={Color.green900} style={{ paddingHorizontal: 10 }}
+                                onPress={() => {
+                                    setCompletion('yes');
+                                    editPost({
+                                        variables: {
+                                            postInput: { ...postInput, completion: 'yes' }
+                                        }
+                                    });
+                                }}
+                            >
+                                YES
+                            </Button>
+                            <Button
+                                mode={completion == 'no' ? "contained" : "text"}
+                                color={Color.errorText} style={{ paddingHorizontal: 10 }}
+                                onPress={() => {
+                                    setCompletion('no');
+                                    editPost({
+                                        variables: {
+                                            postInput: { ...postInput, completion: 'no' }
+                                        }
+                                    });
+                                }}
+                            >
+                                NO
+                            </Button>
+                        </View>
+                    </View>}
                     <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18, alignSelf: 'flex-start' }}>{post.username}</Text>
                         {post.public ? <MaterialIcon name='public' size={30} color={Color.gray900} /> : <MaterialIcon name='lock' size={30} color={Color.gray900} />}
@@ -254,7 +311,7 @@ function YNPostDetailScreen({ route, navigation }) {
             </View>)}
             <Provider>
                 <Portal>
-                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{...styles.containerStyle, backgroundColor: isLoading? 'transparent': 'white'}}>
+                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ ...styles.containerStyle, backgroundColor: isLoading ? 'transparent' : 'white' }}>
                         {isLoading ? (
                             <CircularProgress />
                         ) : (

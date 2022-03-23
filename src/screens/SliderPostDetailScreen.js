@@ -4,6 +4,7 @@ import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Slider from '@react-native-community/slider';
 
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Styles from '../styles/Styles';
@@ -12,7 +13,7 @@ import Tag from '../components/Tag';
 import moment from 'moment';
 import { AuthContext } from '../context/auth';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { COMMENT_POST, DELETE_POST, DELETE_POST_COMMENT, LIKE_POST } from '../utils/graphql/mutations';
+import { COMMENT_POST, DELETE_POST, DELETE_POST_COMMENT, EDIT_POST, LIKE_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -123,6 +124,32 @@ function PPostDetailScreen({ route, navigation }) {
         }
     });
 
+    // completion
+    const [completion, setCompletion] = useState(0);
+    const [sliderCompleted, setSliderCompleted] = useState(false);
+    const postInput = {
+        foodName: post.foodName,
+        ateTime: post.ateTime,
+        rating: post.rating,
+        restaurantName: post.restaurantName,
+        location: post.location,
+        price: post.price,
+        review: post.review,
+        tags: post.tags,
+        image: post.image,
+        public: post.public
+    };
+    const [editPost] = useMutation(EDIT_POST, {
+        onError(err) {
+            // TODO: show required field errors on UI
+            console.log(err);
+        },
+        variables: {
+            postId: post.id,
+            postInput
+        }
+    });
+
 
     return (
         // <Text> { data } </Text>
@@ -164,6 +191,30 @@ function PPostDetailScreen({ route, navigation }) {
             </View>
             <ScrollView style={{ marginTop: 50 }}>
                 <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
+                    {new Date(post.ateTime).toDateString() == (new Date()).toDateString() && post.completion == '' && !sliderCompleted &&
+                        <View style={{ paddingHorizontal: 20, alignItems: 'center', marginVertical: 5 }}>
+                            <Text style={{ fontSize: 20, color: Color.gray900, fontWeight: 'bold' }}>How much did you finish your meal?</Text>
+                            <Text style={{ fontSize: 25, color: Color.gray900, fontWeight: 'bold' }}>{completion}%</Text>
+                            <Slider
+                                style={{ width: '100%', height: 50 }}
+                                minimumValue={0}
+                                maximumValue={100}
+                                minimumTrackTintColor={Color.green900}
+                                maximumTrackTintColor={Color.green900}
+                                step={1}
+                                onValueChange={(value) => {
+                                    setCompletion(value);
+                                }}
+                                onSlidingComplete={(value) => {
+                                    editPost({
+                                        variables: {
+                                            postInput: { ...postInput, completion: value.toString() }
+                                        }
+                                    });
+                                    setSliderCompleted(true);
+                                }}
+                            />
+                        </View>}
                     <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18, alignSelf: 'flex-start' }}>{post.username}</Text>
                         {post.public ? <MaterialIcon name='public' size={30} color={Color.gray900} /> : <MaterialIcon name='lock' size={30} color={Color.gray900} />}
@@ -254,7 +305,7 @@ function PPostDetailScreen({ route, navigation }) {
             </View>)}
             <Provider>
                 <Portal>
-                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{...styles.containerStyle, backgroundColor: isLoading? 'transparent': 'white'}}>
+                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ ...styles.containerStyle, backgroundColor: isLoading ? 'transparent' : 'white' }}>
                         {isLoading ? (
                             <CircularProgress />
                         ) : (

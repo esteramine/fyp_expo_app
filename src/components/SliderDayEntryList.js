@@ -88,7 +88,7 @@ function PDayEntryList({ posts, showModal, deletePost, loading }) {
                                         <Text style={{ marginRight: 10, backgroundColor: Color.gray300, color: 'white', fontWeight: 'bold', padding: 3, borderRadius: 5 }} >Unspecified</Text>
                                     </View>
                                 ) : (
-                                    e.completed && <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    e.completion!='' && parseInt(e.completion) > 70 && <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                         <Icon {...props} name='smileo' size={30} color={Color.gray900} style={{ marginRight: 15 }} />
                                     </View>
                                 )}
