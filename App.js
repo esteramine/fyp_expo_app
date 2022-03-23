@@ -5,15 +5,11 @@ import { setContext } from '@apollo/client/link/context';
 
 import UserStorage from './src/utils/UserStorage';
 import { KeyNotExistError, TOKEN } from './src/utils/Constants';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext, AuthProvider } from './src/context/auth';
 import RegisterScreen from './src/screens/RegisterScreen';
-import SettingsScreen from './src/screens/SettingsScreen';
-import CustomizedCalendar from './src/components/Calendar';
 import LoginScreen from './src/screens/LoginScreen';
-import PostDetailScreen from './src/screens/PostDetailScreen';
-import EditPostScreen from './src/screens/EditPostScreen';
 import Tabs from './src/screens/Tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
@@ -58,8 +54,8 @@ export default function App() {
                           <Stack.Screen name="Tabs" component={Tabs} />
                           {/* <Stack.Screen name="AddEntry" component={} />
                           <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} /> */}
-                          <Stack.Screen name="PostDetail" component={PostDetailScreen} />
-                          <Stack.Screen name="EditPost" component={EditPostScreen} />
+                          {/* <Stack.Screen name="PostDetail" component={PostDetailScreen} />
+                          <Stack.Screen name="EditPost" component={EditPostScreen} /> */}
                         </Stack.Navigator>
                       ) : (
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
