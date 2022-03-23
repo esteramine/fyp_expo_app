@@ -8,7 +8,7 @@ import { getCurrentDate } from '../utils/Functions';
 import UserStorage from '../utils/UserStorage';
 import { useMutation, useQuery } from '@apollo/client';
 import { FETCH_POSTS_QUERY, FETCH_USER_MONTH_POSTS_QUERY } from '../utils/graphql/queries';
-import DayEntryList from './DayEntryList';
+import DayEntryList from './SliderDayEntryList';
 import { DELETE_POST } from '../utils/graphql/mutations';
 
 const breakfast = { color: Color.breakfast };
