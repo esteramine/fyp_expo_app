@@ -191,7 +191,7 @@ function PPostDetailScreen({ route, navigation }) {
             </View>
             <ScrollView style={{ marginTop: 50 }}>
                 <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
-                    {new Date(post.ateTime).toDateString() == (new Date()).toDateString() && post.completion == '' && !sliderCompleted &&
+                    {user.username == post.username && new Date(post.ateTime).toDateString() == (new Date()).toDateString() && post.completion == '' && !sliderCompleted &&
                         <View style={{ paddingHorizontal: 20, alignItems: 'center', marginVertical: 5 }}>
                             <Text style={{ fontSize: 20, color: Color.gray900, fontWeight: 'bold' }}>How much did you finish your meal?</Text>
                             <Text style={{ fontSize: 25, color: Color.gray900, fontWeight: 'bold' }}>{completion}%</Text>

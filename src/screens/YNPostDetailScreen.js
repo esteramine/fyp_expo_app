@@ -188,7 +188,7 @@ function YNPostDetailScreen({ route, navigation }) {
             </View>
             <ScrollView style={{ marginTop: 50 }}>
                 <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 20 }}>
-                    {new Date(post.ateTime).toDateString() == (new Date()).toDateString() && completion == '' && <View style={{ paddingHorizontal: 20, alignItems: 'center', marginVertical: 5 }}>
+                    {user.username == post.username && new Date(post.ateTime).toDateString() == (new Date()).toDateString() && completion == '' && <View style={{ paddingHorizontal: 20, alignItems: 'center', marginVertical: 5 }}>
                         <Text style={{ fontSize: 25, color: Color.gray900, fontWeight: 'bold' }}>Did you finish your meal?</Text>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
                             <Button
