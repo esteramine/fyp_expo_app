@@ -10,10 +10,10 @@ import TotalPosts from '../components/TotalPosts';
 function SettingsScreen() {
   const context = useContext(AuthContext);
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: 'center', backgroundColor: 'whitesmoke' }}>
+    <SafeAreaView style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
       <View style={{ width: '100%', backgroundColor: 'white' }}>
         <TotalPosts />
-        { context.user && (<View style={{ flexDirection: 'row', alignItems: 'center', borderColor: Color.gray300, borderTopWidth: 1, borderBottomWidth: 1, padding: 20 }}>
+        { context.user && (<View style={{ flexDirection: 'row', alignItems: 'center', borderColor: 'white', borderTopWidth: 1, borderBottomWidth: 1, padding: 20 }}>
           <Icon name='user' size={50} color={Color.gray900} />
           <Text style={{ color: Color.gray900, fontSize: 20, marginLeft: 15 }}>{context.user.username}</Text>
         </View>)}
