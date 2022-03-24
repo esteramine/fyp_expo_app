@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
-import { Button, Modal, Portal, Provider } from 'react-native-paper';
+import { Button, Modal, Portal, Provider, Snackbar } from 'react-native-paper';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -150,10 +150,17 @@ function PPostDetailScreen({ route, navigation }) {
         }
     });
 
+    const [snackBarVisible, setSnackBarVisible] = useState(false);
 
     return (
         // <Text> { data } </Text>
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+            <Snackbar
+                visible={snackBarVisible}
+                onDismiss={() => setSnackBarVisible(false)}
+            >
+                {parseInt(completion) > 70 ? 'You did a great job!' : 'Thank you for being honest!'}
+            </Snackbar>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
                     color='black'
@@ -212,6 +219,7 @@ function PPostDetailScreen({ route, navigation }) {
                                         }
                                     });
                                     setSliderCompleted(true);
+                                    setSnackBarVisible(true);
                                 }}
                             />
                         </View>}
