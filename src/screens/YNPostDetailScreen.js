@@ -153,12 +153,6 @@ function YNPostDetailScreen({ route, navigation }) {
     return (
         // <Text> { data } </Text>
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-            <Snackbar
-                visible={snackBarVisible}
-                onDismiss={() => setSnackBarVisible(false)}
-            >
-                {completion == 'yes'? 'You did a great job!': 'Thank you for being honest!'}
-            </Snackbar>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
                     color='black'
@@ -319,6 +313,12 @@ function YNPostDetailScreen({ route, navigation }) {
                     <Text style={{ color: comment.trim() === '' ? 'white' : Color.green900 }}>Post</Text>
                 </TouchableOpacity>
             </View>)}
+            <Snackbar
+                visible={snackBarVisible}
+                onDismiss={() => setSnackBarVisible(false)}
+            >
+                {completion == 'yes' ? 'You did a great job!' : 'Thank you for being honest!'}
+            </Snackbar>
             <Provider>
                 <Portal>
                     <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ ...styles.containerStyle, backgroundColor: isLoading ? 'transparent' : 'white' }}>
