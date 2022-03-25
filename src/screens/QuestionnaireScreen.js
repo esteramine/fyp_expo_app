@@ -5,7 +5,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 
 import Styles from '../styles/Styles';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useMutation } from '@apollo/client';
@@ -172,7 +172,7 @@ function QuestionnaireScreen({ route, navigation }) {
                         {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>}
                         <Image
                             style={{ width: 300, height: 300, margin: 10, opacity: reviewPost ? 1 : 0.5 }}
-                            source={{ uri: "data:image/png;base64," + image }} />
+                            source={{ uri: ImageHeader + image }} />
                     </View>
 
                     <View style={{ paddingHorizontal: 20 }}>

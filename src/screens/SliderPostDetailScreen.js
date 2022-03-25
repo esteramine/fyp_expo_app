@@ -8,7 +8,7 @@ import Slider from '@react-native-community/slider';
 
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Styles from '../styles/Styles';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import Tag from '../components/Tag';
 import moment from 'moment';
 import { AuthContext } from '../context/auth';
@@ -231,7 +231,7 @@ function PPostDetailScreen({ route, navigation }) {
 
                         <Image
                             style={{ alignItems: 'center', width: 300, height: 300, margin: 10, opacity: 1 }}
-                            source={{ uri: "data:image/png;base64," + post.image }} />
+                            source={{ uri: ImageHeader + post.image }} />
                     </View>
 
                     {post.public && (<View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center' }}>

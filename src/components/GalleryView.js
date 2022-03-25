@@ -3,6 +3,7 @@ import { Image, Dimensions, StyleSheet } from 'react-native';
 import { Card, Provider } from 'react-native-paper';
 import MasonryList from '@react-native-seoul/masonry-list';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ImageHeader } from '../utils/Constants';
 
 const styles = StyleSheet.create({
     content: {
@@ -58,7 +59,7 @@ function GalleryView({ onCardPressed, posts }) {
         return (
             <TouchableOpacity onPress={() => onCardPressed(item)} key={item.id}>
                 <Image
-                    source={{ uri: "data:image/png;base64," + item.image }}
+                    source={{ uri: ImageHeader + item.image }}
                     style={{ height: getRandomInt(150, 250), margin: 5, borderRadius: 5 }}
                 />
             </TouchableOpacity>
@@ -76,7 +77,7 @@ function GalleryView({ onCardPressed, posts }) {
                     key={post.id}
                 >
                     <Card.Cover
-                        source={{ uri: "data:image/png;base64,"+ post.image }}
+                        source={{ uri: ImageHeader+ post.image }}
                         style={styles.post}
                     />
                 </Card>
@@ -92,7 +93,7 @@ function GalleryView({ onCardPressed, posts }) {
                     key={post.id}
                 >
                     <Card.Cover
-                        source={{ uri: "data:image/png;base64,"+ post.image }}
+                        source={{ uri: ImageHeader+ post.image }}
                         style={styles.post}
                     />
                 </Card>
@@ -112,7 +113,7 @@ function GalleryView({ onCardPressed, posts }) {
                         key={post.id}
                     >
                         <Card.Cover
-                            source={{ uri: "data:image/png;base64,"+ post.image }}
+                            source={{ uri: ImageHeader+ post.image }}
                             style={styles.post}
                         />
                     </Card>
@@ -147,7 +148,7 @@ function GalleryView({ onCardPressed, posts }) {
 //                     ref="masonry"
 //                     columns={3}
 //                     renderItem={(post) => (
-//                         <Image source={{ uri: "data:image/png;base64," + post.image }} style={{ height: 100 }}/>            
+//                         <Image source={{ uri: ImageHeader + post.image }} style={{ height: 100 }}/>            
 //                     )}
 //                 /> */}
 //                 <Masonry

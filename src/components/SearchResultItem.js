@@ -5,7 +5,7 @@ import {
     ListItem,
     LinearProgress,
 } from 'react-native-elements';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 
@@ -18,7 +18,7 @@ function SearchResultItem({ post }) {
             <Avatar
                 style={{ width: 100, height: 100 }}
                 source={{
-                    uri: "data:image/png;base64,"+ post.image,
+                    uri: ImageHeader + post.image,
                 }}
             />
 

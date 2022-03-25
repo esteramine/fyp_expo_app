@@ -6,7 +6,7 @@ import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import Styles from '../styles/Styles';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST, EDIT_POST } from '../utils/graphql/mutations';
 import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
@@ -168,7 +168,7 @@ function EditPostScreen({ route, navigation }) {
                         {/* {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>} */}
                         <Image
                             style={{ width: 300, height: 300, margin: 10, opacity: 1 }}
-                            source={{ uri: "data:image/png;base64," + post.image }} />
+                            source={{ uri: ImageHeader + post.image }} />
                     </View>
 
                     <View style={{ paddingHorizontal: 20 }}>

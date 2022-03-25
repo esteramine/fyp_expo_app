@@ -6,7 +6,7 @@ import { getCurrentDate } from '../utils/Functions';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../utils/graphql/mutations';
 import { FETCH_USER_MONTH_POSTS_QUERY } from '../utils/graphql/queries';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import CircularProgress from '../components/CircularProgress';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -70,7 +70,7 @@ const getCurrentTime = () => {
 function AddEntryScreen({ route, navigation }) {
   const storage = new UserStorage();
   const { base64Link } = route.params;
-  const imageUri = "data:image/png;base64," + base64Link;
+  const imageUri = ImageHeader + base64Link;
   const [text, setText] = React.useState('');
   const ateTimeObj = new Date();
   const [errors, setErrors] = useState({});
