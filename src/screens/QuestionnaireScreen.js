@@ -111,6 +111,7 @@ function QuestionnaireScreen({ route, navigation }) {
         },
         onError(err) {
             // TODO: show required field errors on UI
+            console.log(err)
             setErrors(err.graphQLErrors[0].extensions.errors);
             setVisible(false);
         },
