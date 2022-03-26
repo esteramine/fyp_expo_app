@@ -17,7 +17,7 @@ import { createUploadLink } from 'apollo-upload-client';
 
 // const uri = 'https://huatm1fypserver.herokuapp.com/';
 // const uri = 'http://10.89.6.175:5000/graphql';
-const uri = 'http://9f41-175-159-120-175.ngrok.io/graphql';
+const uri = 'http://3.80.188.56:5000/graphql';
 
 const httpLink = createHttpLink({
   uri,
