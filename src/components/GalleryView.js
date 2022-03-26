@@ -3,6 +3,7 @@ import { Image, Dimensions, StyleSheet } from 'react-native';
 import { Card, Provider } from 'react-native-paper';
 import MasonryList from '@react-native-seoul/masonry-list';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ImageHeader } from '../utils/Constants';
 
 const styles = StyleSheet.create({
     content: {
@@ -47,19 +48,18 @@ const styles = StyleSheet.create({
     }
 });
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
 function GalleryView({ onCardPressed, posts }) {
+    const heights = [168, 227, 235, 157, 228, 233, 180, 152, 224, 158, 231, 156, 204, 171, 190, 151, 249, 201, 169, 238, 227];
+    // for (var i = 0; i < 20; i++) {
+    //     heights[i] = getRandomInt(150, 250);
+    // }
+
     const renderItem = ({ item, i }) => {
         return (
             <TouchableOpacity onPress={() => onCardPressed(item)} key={item.id}>
                 <Image
-                    source={{ uri: "data:image/png;base64," + item.image }}
-                    style={{ height: getRandomInt(150, 250), margin: 5, borderRadius: 5 }}
+                    source={{ uri: ImageHeader + item.image }}
+                    style={{ height: heights[i%21], margin: 5, borderRadius: 5 }}
                 />
             </TouchableOpacity>
         )
@@ -76,7 +76,7 @@ function GalleryView({ onCardPressed, posts }) {
                     key={post.id}
                 >
                     <Card.Cover
-                        source={{ uri: "data:image/png;base64,"+ post.image }}
+                        source={{ uri: ImageHeader+ post.image }}
                         style={styles.post}
                     />
                 </Card>
@@ -92,7 +92,7 @@ function GalleryView({ onCardPressed, posts }) {
                     key={post.id}
                 >
                     <Card.Cover
-                        source={{ uri: "data:image/png;base64,"+ post.image }}
+                        source={{ uri: ImageHeader+ post.image }}
                         style={styles.post}
                     />
                 </Card>
@@ -112,7 +112,7 @@ function GalleryView({ onCardPressed, posts }) {
                         key={post.id}
                     >
                         <Card.Cover
-                            source={{ uri: "data:image/png;base64,"+ post.image }}
+                            source={{ uri: ImageHeader+ post.image }}
                             style={styles.post}
                         />
                     </Card>
@@ -147,7 +147,7 @@ function GalleryView({ onCardPressed, posts }) {
 //                     ref="masonry"
 //                     columns={3}
 //                     renderItem={(post) => (
-//                         <Image source={{ uri: "data:image/png;base64," + post.image }} style={{ height: 100 }}/>            
+//                         <Image source={{ uri: ImageHeader + post.image }} style={{ height: 100 }}/>            
 //                     )}
 //                 /> */}
 //                 <Masonry

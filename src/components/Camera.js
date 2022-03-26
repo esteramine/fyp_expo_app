@@ -15,26 +15,32 @@ export default function CustomizedCamera() {
 
   const __takePicture = async () => {
     if (!camera) return;
-    const options = { quality: 0.5, base64: true };
+    const options = { quality: 1 };
     const photo = await camera.takePictureAsync(options);
-    navigation.navigate('CameraPreview', { image: photo.base64 });
+    navigation.navigate('CameraPreview', { image: photo.uri });
   }
 
   const pickImage = async () => {
     setFocused(false);
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      base64: true,
-      quality: 1,
-    });
+    const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (granted) {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+      });
 
-    if (!result.cancelled) {
-      setFocused(true);
-      navigation.navigate('Questionnaire', { base64Link: result.base64, review: true })
+      if (!result.cancelled) {
+        setFocused(true);
+        navigation.navigate('Questionnaire', { review: true, uri: result.uri })
+      }
+      else {
+        setFocused(true);
+      }
     }
     else {
       setFocused(true);
+      return;
     }
   };
 

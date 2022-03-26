@@ -5,7 +5,7 @@ import { Dimensions, Image, ScrollView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { CalendarHeight, Color, HeaderHeight } from '../utils/Constants';
+import { CalendarHeight, Color, HeaderHeight, ImageHeader } from '../utils/Constants';
 import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
@@ -79,7 +79,7 @@ function YNDayEntryList({ posts, showModal, deletePost, loading }) {
                                         <View style={[styles.rectangle, { backgroundColor: Color.breakfast }]} />
                                         <Image
                                             style={styles.thumbnail}
-                                            source={{ uri: "data:image/png;base64," + e.image }}
+                                            source={{ uri: ImageHeader + e.image }}
                                         />
                                     </View>
                                 )}

@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const CREATE_POST = gql`
     mutation createPost(
-        $image: String!
+        $image: Upload!
         $foodName: String!
         $completion: String!
         $ateTime: String!
@@ -64,7 +64,7 @@ export const CREATE_POST = gql`
 export const EDIT_POST = gql`
     mutation editPost(
         $postId: ID!
-        $postInput: PostInput
+        $postInput: EditPostInput
     ) {
         editPost(
             postId: $postId,
