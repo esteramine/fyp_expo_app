@@ -4,6 +4,7 @@ import Camera from '../components/Camera';
 import CameraPreview from '../components/CameraPreview';
 import QuestionnaireScreen from '../screens/QuestionnaireScreen';
 import AddEntryScreen from '../screens/AddEntryScreen';
+import PostDetailScreen from '../screens/PostDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function CaptureStack() {
             <Stack.Screen name="CameraPreview" component={CameraPreview} />
             <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} />
             <Stack.Screen name="AddEntry" component={AddEntryScreen} />
+            <Stack.Screen name="PostDetail" component={PostDetailScreen} />
         </Stack.Navigator>
     );
 }
