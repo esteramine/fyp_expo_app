@@ -13,9 +13,10 @@ import LoginScreen from './src/screens/LoginScreen';
 import Tabs from './src/screens/Tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import createUploadLink from 'apollo-upload-client/public/createUploadLink';
+import { createUploadLink } from 'apollo-upload-client';
 
-const uri = 'https://huatm1fypserver.herokuapp.com/';
+// const uri = 'https://huatm1fypserver.herokuapp.com/';
+const uri = 'http://10.89.6.175:5000/graphql';
 
 const httpLink = createHttpLink({
   uri,
@@ -36,8 +37,7 @@ const authLink = setContext(async () => {
 const client = new ApolloClient({
   link: ApolloLink.from([
     authLink,
-    createUploadLink({ uri }),
-    // httpLink
+    createUploadLink({ uri: uri }),
   ]),
   
   cache: new InMemoryCache()

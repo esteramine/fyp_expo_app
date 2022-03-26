@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { Button, TextInput, Modal, Portal, Provider } from 'react-native-paper';
 import UserStorage from '../utils/UserStorage';
-import { getCurrentDate } from '../utils/Functions';
+import { generateRNFile, getCurrentDate } from '../utils/Functions';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../utils/graphql/mutations';
 import { FETCH_USER_MONTH_POSTS_QUERY } from '../utils/graphql/queries';
@@ -69,8 +69,9 @@ const getCurrentTime = () => {
 
 function AddEntryScreen({ route, navigation }) {
   const storage = new UserStorage();
-  const { base64Link } = route.params;
-  const imageUri = ImageHeader + base64Link;
+  // const { base64Link } = route.params;
+  const imageUri = route.params.uri;
+  // const imageUri = ImageHeader + base64Link;
   const [text, setText] = React.useState('');
   const ateTimeObj = new Date();
   const [errors, setErrors] = useState({});
@@ -100,10 +101,12 @@ function AddEntryScreen({ route, navigation }) {
       navigation.navigate('Diary', { update: true });
     },
     onError(err) {
+      console.log(JSON.stringify(err, null, 2))
       setErrors(err.graphQLErrors[0].extensions.errors);
       setVisible(false);
     },
     variables: {
+      postInput: {
       foodName: text,
       ateTime: ateTimeObj.toISOString(),
       completion: '',
@@ -113,9 +116,9 @@ function AddEntryScreen({ route, navigation }) {
       price: '',
       review: '',
       tags: [],
-      image: base64Link,
+      image: generateRNFile(imageUri, 'name'),
       public: false
-    }
+    }}
   });
   const [visible, setVisible] = useState(false);
 

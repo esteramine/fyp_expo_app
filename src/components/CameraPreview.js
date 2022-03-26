@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
 export default function CameraPreview({ route, navigation }) {
   const { showActionSheetWithOptions } = useActionSheet();
   const image = route.params.image;
-  const uri = ImageHeader + image;
 
   // bottom sheet
   const openSheet = () => {
@@ -45,7 +44,7 @@ export default function CameraPreview({ route, navigation }) {
       let next;
       if (index == 0) next = "Questionnaire";
       else if (index == 1) next = "AddEntry";
-      navigation.navigate(next, { base64Link: image, review: index == 0 ? true : false });
+      navigation.navigate(next, { uri: image, review: index == 0 ? true : false });
     });
   };
 
@@ -53,7 +52,7 @@ export default function CameraPreview({ route, navigation }) {
   return (
 
     <SafeAreaView style={styles.container}>
-      <Image style={styles.preview} source={{ uri: uri }} />
+      <Image style={styles.preview} source={{ uri: image }} />
       <View style={styles.buttonContainer}>
         <IconButton
           icon="arrow-left"
