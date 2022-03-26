@@ -15,7 +15,7 @@ export default function CustomizedCamera() {
 
   const __takePicture = async () => {
     if (!camera) return;
-    const options = { quality: 0.1 };
+    const options = { quality: 1 };
     const photo = await camera.takePictureAsync(options);
     navigation.navigate('CameraPreview', { image: photo.uri });
   }
@@ -27,13 +27,12 @@ export default function CustomizedCamera() {
     if (granted) {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        base64: true,
         quality: 1,
       });
 
       if (!result.cancelled) {
         setFocused(true);
-        navigation.navigate('Questionnaire', { base64Link: result.base64, review: true, uri: result.uri })
+        navigation.navigate('Questionnaire', { review: true, uri: result.uri })
       }
       else {
         setFocused(true);
