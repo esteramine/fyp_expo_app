@@ -74,7 +74,6 @@ function PostDetailScreen({ route, navigation }) {
     const [likePost] = useMutation(LIKE_POST, {
         update(proxy, result) {
             setLikeCount(result.data.likePost.likeCount);
-            setLiked(!liked);
             // refetch();
         },
         onError(err) {
@@ -184,7 +183,10 @@ function PostDetailScreen({ route, navigation }) {
                     </View>
 
                     {post.public && (<View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={{ paddingRight: 15 }} onPress={likePost}>
+                        <TouchableOpacity style={{ paddingRight: 15 }} onPress={()=> {
+                            likePost();
+                            setLiked(!liked);
+                        }}>
                             {liked ? (<AntDesignIcon name="heart" size={30} color={Color.green500} />
                             ) : (<AntDesignIcon name="hearto" size={30} color={Color.gray900} />)}
                         </TouchableOpacity>
