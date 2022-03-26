@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, Image, StyleSheet, TextInput } from 'react-native';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 import UserStorage from './src/utils/UserStorage';
@@ -13,9 +13,12 @@ import LoginScreen from './src/screens/LoginScreen';
 import Tabs from './src/screens/Tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import createUploadLink from 'apollo-upload-client/public/createUploadLink';
+
+const uri = 'https://huatm1fypserver.herokuapp.com/';
 
 const httpLink = createHttpLink({
-  uri: 'https://huatm1fypserver.herokuapp.com/',
+  uri,
   // uri: 'http://10.89.6.175:5000'
 });
 
@@ -31,7 +34,12 @@ const authLink = setContext(async () => {
 })
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.from([
+    authLink,
+    createUploadLink({ uri }),
+    // httpLink
+  ]),
+  
   cache: new InMemoryCache()
 });
 
