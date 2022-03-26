@@ -47,8 +47,6 @@ function GalleryScreen({ route, navigation }) {
     }
   }, [loading])
 
-  var base64Link = '';
-
   return (
     <SafeAreaView style={{ height: '100%', backgroundColor: 'white' }}>
       <TotalPosts/>

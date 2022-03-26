@@ -7,7 +7,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Styles from '../styles/Styles';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import Tag from '../components/Tag';
 import moment from 'moment';
 import { AuthContext } from '../context/auth';
@@ -74,7 +74,6 @@ function PostDetailScreen({ route, navigation }) {
     const [likePost] = useMutation(LIKE_POST, {
         update(proxy, result) {
             setLikeCount(result.data.likePost.likeCount);
-            setLiked(!liked);
             // refetch();
         },
         onError(err) {
@@ -180,11 +179,14 @@ function PostDetailScreen({ route, navigation }) {
 
                         <Image
                             style={{ alignItems: 'center', width: 300, height: 300, margin: 10, opacity: 1 }}
-                            source={{ uri: "data:image/png;base64," + post.image }} />
+                            source={{ uri: ImageHeader + post.image }} />
                     </View>
 
                     {post.public && (<View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={{ paddingRight: 15 }} onPress={likePost}>
+                        <TouchableOpacity style={{ paddingRight: 15 }} onPress={()=> {
+                            likePost();
+                            setLiked(!liked);
+                        }}>
                             {liked ? (<AntDesignIcon name="heart" size={30} color={Color.green500} />
                             ) : (<AntDesignIcon name="hearto" size={30} color={Color.gray900} />)}
                         </TouchableOpacity>

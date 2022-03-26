@@ -5,7 +5,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 
 import Styles from '../styles/Styles';
-import { Color } from '../utils/Constants';
+import { Color, ImageHeader } from '../utils/Constants';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useMutation } from '@apollo/client';
@@ -14,6 +14,7 @@ import { FETCH_POSTS_QUERY } from '../utils/graphql/queries';
 import CircularProgress from '../components/CircularProgress';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackActions } from '@react-navigation/native';
+import { generateRNFile } from '../utils/Functions';
 
 const styles = StyleSheet.create({
     cancel: {
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
 });
 
 function QuestionnaireScreen({ route, navigation }) {
-    const image = route.params.base64Link;
+    // const image = route.params.base64Link;
+    const image = route.params.uri;
     const reviewPost = route.params.review;
 
     const [foodName, setFoodName] = useState('');
@@ -107,10 +109,11 @@ function QuestionnaireScreen({ route, navigation }) {
                 // console.log(newData);
             }
             navigation.dispatch(StackActions.popToTop());
-            navigation.navigate('Home');
+            navigation.navigate('PostDetail', { data: result.data.createPost });
         },
         onError(err) {
             // TODO: show required field errors on UI
+            console.log(err)
             setErrors(err.graphQLErrors[0].extensions.errors);
             setVisible(false);
         },
@@ -171,7 +174,7 @@ function QuestionnaireScreen({ route, navigation }) {
                         {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>}
                         <Image
                             style={{ width: 300, height: 300, margin: 10, opacity: reviewPost ? 1 : 0.5 }}
-                            source={{ uri: "data:image/png;base64," + image }} />
+                            source={{ uri: image }} />
                     </View>
 
                     <View style={{ paddingHorizontal: 20 }}>
@@ -276,7 +279,7 @@ function QuestionnaireScreen({ route, navigation }) {
                                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                                     review,
                                                     tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                                    image,
+                                                    image: generateRNFile(image, `${Date.now()}`),
                                                     public: false
                                                 }
                                             });
@@ -302,7 +305,7 @@ function QuestionnaireScreen({ route, navigation }) {
                                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                                     review,
                                                     tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                                    image,
+                                                    image: generateRNFile(image, `${Date.now()}`),
                                                     public: true
                                                 }
                                             });
