@@ -48,19 +48,18 @@ const styles = StyleSheet.create({
     }
 });
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
 function GalleryView({ onCardPressed, posts }) {
+    const heights = [168, 227, 235, 157, 228, 233, 180, 152, 224, 158, 231, 156, 204, 171, 190, 151, 249, 201, 169, 238, 227];
+    // for (var i = 0; i < 20; i++) {
+    //     heights[i] = getRandomInt(150, 250);
+    // }
+
     const renderItem = ({ item, i }) => {
         return (
             <TouchableOpacity onPress={() => onCardPressed(item)} key={item.id}>
                 <Image
                     source={{ uri: ImageHeader + item.image }}
-                    style={{ height: getRandomInt(150, 250), margin: 5, borderRadius: 5 }}
+                    style={{ height: heights[i%21], margin: 5, borderRadius: 5 }}
                 />
             </TouchableOpacity>
         )
