@@ -15,8 +15,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { createUploadLink } from 'apollo-upload-client';
 
-// const uri = 'https://huatm1fypserver.herokuapp.com/';
-const uri = 'http://10.89.6.175:5000/graphql';
+const uri = 'https://huatm1fypserver.herokuapp.com/';
+// const uri = 'http://10.89.6.175:5000/graphql';
 
 const httpLink = createHttpLink({
   uri,
