@@ -64,7 +64,7 @@ export const CREATE_POST = gql`
 export const EDIT_POST = gql`
     mutation editPost(
         $postId: ID!
-        $postInput: PostInput
+        $postInput: EditPostInput
     ) {
         editPost(
             postId: $postId,
