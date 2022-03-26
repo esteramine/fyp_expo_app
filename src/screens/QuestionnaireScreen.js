@@ -109,7 +109,7 @@ function QuestionnaireScreen({ route, navigation }) {
                 // console.log(newData);
             }
             navigation.dispatch(StackActions.popToTop());
-            navigation.navigate('Home');
+            navigation.navigate('PostDetail', { data: result.data.createPost });
         },
         onError(err) {
             // TODO: show required field errors on UI
@@ -279,7 +279,7 @@ function QuestionnaireScreen({ route, navigation }) {
                                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                                     review,
                                                     tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                                    image,
+                                                    image: generateRNFile(image, `${Date.now()}`),
                                                     public: false
                                                 }
                                             });
@@ -305,7 +305,7 @@ function QuestionnaireScreen({ route, navigation }) {
                                                     price: price.trim() === '' ? '' : (price + ' HKD'),
                                                     review,
                                                     tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                                    image: generateRNFile(image, 'name'),
+                                                    image: generateRNFile(image, `${Date.now()}`),
                                                     public: true
                                                 }
                                             });
