@@ -85,6 +85,7 @@ function EditPostScreen({ route, navigation }) {
         },
         onError(err) {
             // TODO: show required field errors on UI
+            console.log(JSON.stringify(err, null, 2))
             setErrors(err.graphQLErrors[0].extensions.errors);
             setVisible(false);
         },
