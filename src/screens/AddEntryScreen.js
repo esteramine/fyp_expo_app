@@ -106,7 +106,6 @@ function AddEntryScreen({ route, navigation }) {
       setVisible(false);
     },
     variables: {
-      postInput: {
       foodName: text,
       ateTime: ateTimeObj.toISOString(),
       completion: '',
@@ -116,9 +115,9 @@ function AddEntryScreen({ route, navigation }) {
       price: '',
       review: '',
       tags: [],
-      image: generateRNFile(imageUri, 'name'),
+      image: generateRNFile(imageUri, `${Date.now()}`),
       public: false
-    }}
+    }
   });
   const [visible, setVisible] = useState(false);
 
