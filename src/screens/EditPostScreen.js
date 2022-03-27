@@ -32,6 +32,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         paddingVertical: 2
     },
+    inputBorder: {
+        borderWidth: 1, 
+        borderColor: Color.gray500, 
+        paddingHorizontal: 6,
+        paddingVertical: 4, 
+        marginVertical: 10
+    },
     inputTitle: {
         fontSize: 24,
         color: Color.gray900,
@@ -232,9 +239,9 @@ function EditPostScreen({ route, navigation }) {
                             <Text style={{ marginLeft: 5 }}> HKD</Text>
                         </View>
                         <TextInput
-                            style={{ borderWidth: 1, borderColor: Color.gray500, paddingBottom: 40, paddingHorizontal: 10, marginVertical: 10 }}
+                            style={styles.inputBorder}
                             placeholder='Review'
-                            multiline={true}
+                            // multiline={true}
                             onChangeText={setReview}
                             value={review}
                         />
@@ -242,9 +249,9 @@ function EditPostScreen({ route, navigation }) {
                             <Text style={{ marginRight: 5 }}>Tags</Text>
                         </View>
                         <TextInput
-                            style={{ borderWidth: 1, borderColor: Color.gray500, paddingBottom: 40, paddingHorizontal: 10, marginVertical: 10 }}
+                            style={styles.inputBorder}
                             placeholder='Please separate the tags with spaces.'
-                            multiline={true}
+                            // multiline={true}
                             onChangeText={setTags}
                             value={tags}
                         />
