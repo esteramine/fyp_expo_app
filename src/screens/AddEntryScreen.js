@@ -160,6 +160,7 @@ function AddEntryScreen({ route, navigation }) {
           value={text}
           mode='outlined'
           placeholder='What did you get?'
+          placeholderTextColor={Color.gray300}
           selectionColor='lightblue'
           outlineColor='transparent'
           activeOutlineColor='transparent'
