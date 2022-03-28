@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
         paddingVertical: 2
     },
     inputBorder: {
-        borderWidth: 1, 
-        borderColor: Color.gray500, 
+        borderWidth: 1,
+        borderColor: Color.gray500,
         paddingHorizontal: 6,
-        paddingVertical: 4, 
+        paddingVertical: 4,
         marginVertical: 10
     },
     inputTitle: {
@@ -134,197 +134,209 @@ function QuestionnaireScreen({ route, navigation }) {
 
     return (
         <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
         >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView style={{ backgroundColor: 'white' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
-                <Button
-                    color='black'
-                    uppercase={false}
-                    compact
-                    style={styles.cancel}
-                    onPress={() => {
-                        navigation.goBack();
-                    }}
-                >
-                    Cancel
-                </Button>
-                <Button
-                    color={Color.green1000}
-                    uppercase={false}
-                    compact
-                    style={styles.save}
-                    onPress={showModal}
-                >
-                    Save
-                </Button>
-            </View>
-            <ScrollView style={{ marginTop: 50 }}>
-                {Object.keys(errors).length > 0 && (
-                    <View style={styles.errorBox}>
-                        {Object.values(errors).map(error => (
-                            <Text key={error}>{error}</Text>
-                        ))}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <SafeAreaView style={{ backgroundColor: 'white' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+                        <Button
+                            color='black'
+                            uppercase={false}
+                            compact
+                            style={styles.cancel}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color={Color.green1000}
+                            uppercase={false}
+                            compact
+                            style={styles.save}
+                            onPress={showModal}
+                        >
+                            Save
+                        </Button>
                     </View>
-                )}
-                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 50 }}>
-                    <View style={{ alignItems: 'center' }}>
-                        {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>}
-                        <Image
-                            style={{ width: 300, height: 300, margin: 10, opacity: reviewPost ? 1 : 0.5 }}
-                            source={{ uri: image }} />
-                    </View>
+                    <ScrollView style={{ marginTop: 50 }}>
+                        {Object.keys(errors).length > 0 && (
+                            <View style={styles.errorBox}>
+                                {Object.values(errors).map(error => (
+                                    <Text key={error}>{error}</Text>
+                                ))}
+                            </View>
+                        )}
+                        <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 50 }}>
+                            <View style={{ alignItems: 'center' }}>
+                                {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>}
+                                <Image
+                                    style={{ width: 300, height: 300, margin: 10, opacity: reviewPost ? 1 : 0.5 }}
+                                    source={{ uri: image }} />
+                            </View>
 
-                    <View style={{ paddingHorizontal: 20 }}>
-                        <TextInput
-                            style={[styles.input, styles.inputTitle]}
-                            placeholder='What did you get?'
-                            onChangeText={setFoodName}
-                            value={foodName}
-                        />
-                        <>
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => setDatePickerOpen(true)}>
-                                <Text style={{ marginRight: 10, color: Color.gray500 }}>{ateTime.toDateString()}</Text>
-                                <Icon name='edit' size={25} color={Color.gray500} />
-                            </TouchableOpacity>
-                            <DateTimePickerModal
-                                isVisible={datePickerOpen}
-                                locale="zh_HK"
-                                date={ateTime}
-                                mode={'date'}
-                                maximumDate={new Date()}
-                                onConfirm={(date) => {
-                                    setDatePickerOpen(false)
-                                    setAteTime(date)
-                                }}
-                                onCancel={() => {
-                                    setDatePickerOpen(false)
-                                }}
-                            />
-                        </>
-                        <View style={{ backgroundColor: Color.gray900, height: 1, width: '100%', marginVertical: 10 }}></View>
-                        <Text style={{ color: Color.gray900, fontWeight: '600', marginTop: 5, fontSize: 18 }}>Optional Fields</Text>
-                        <AirbnbRating
-                            onFinishRating={(rating) => setRating(rating.toString())}
-                            reviewSize={15}
-                            size={20}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Restaurant Name'
-                            onChangeText={setRestaurantName}
-                            value={restaurantName}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Location'
-                            onChangeText={setLocation}
-                            value={location}
-                        />
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='Price'
-                                keyboardType='numeric'
-                                onChangeText={setPrice}
-                                value={price}
-                            />
-                            <Text style={{ marginLeft: 5 }}> HKD</Text>
-                        </View>
-                        <TextInput
-                            style={styles.inputBorder}
-                            placeholder='Review'
-                            // multiline={true}
-                            onChangeText={setReview}
-                            value={review}
-                        />
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
-                            <Text style={{ marginRight: 5 }}>Tags</Text>
-                        </View>
-                        <TextInput
-                            style={styles.inputBorder}
-                            placeholder='Please separate the tags with spaces.'
-                            // multiline={true}
-                            onChangeText={setTags}
-                            value={tags}
-                        />
-                    </View>
-
-                </View>
-
-            </ScrollView>
-            <Provider>
-                <Portal>
-                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ ...styles.containerStyle, backgroundColor: isLoading ? 'transparent' : 'white' }}>
-                        {isLoading == true ? (
-                            <CircularProgress />
-                        ) : (
-                            <>
-                                <Text style={{ fontSize: 15, color: Color.gray900 }}>You want this post to be published</Text>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Button
-                                        mode="text"
-                                        onPress={() => {
-                                            setPublicMode(false);
-                                            addPost({
-                                                variables: {
-                                                    foodName,
-                                                    ateTime: ateTime.toISOString(),
-                                                    completion,
-                                                    rating: rating > 5 ? '' : rating,
-                                                    restaurantName,
-                                                    location,
-                                                    price: price.trim() === '' ? '' : (price + ' HKD'),
-                                                    review,
-                                                    tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                                    image: generateRNFile(image, `${Date.now()}`),
-                                                    public: false
-                                                }
-                                            });
-                                            setIsLoading(true);
+                            <View style={{ paddingHorizontal: 20 }}>
+                                <TextInput
+                                    placeholderTextColor={Color.gray300}
+                                    style={[styles.input, styles.inputTitle]}
+                                    placeholder='What did you get?'
+                                    onChangeText={setFoodName}
+                                    value={foodName}
+                                />
+                                <>
+                                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => setDatePickerOpen(true)}>
+                                        <Text style={{ marginRight: 10, color: Color.gray500 }}>{ateTime.toDateString()}</Text>
+                                        <Icon name='edit' size={25} color={Color.gray500} />
+                                    </TouchableOpacity>
+                                    <DateTimePickerModal
+                                        isVisible={datePickerOpen}
+                                        locale="zh_HK"
+                                        date={ateTime}
+                                        mode={'date'}
+                                        maximumDate={new Date()}
+                                        onConfirm={(date) => {
+                                            setDatePickerOpen(false)
+                                            setAteTime(date)
                                         }}
-                                        color={Color.gray500}
-                                        style={{ width: 150, marginVertical: 10 }}
-                                    >
-                                        Privately
-                                    </Button>
-                                    <Button
-                                        mode="text"
-                                        onPress={() => {
-                                            setPublicMode(true);
-                                            addPost({
-                                                variables: {
-                                                    foodName,
-                                                    ateTime: ateTime.toISOString(),
-                                                    completion,
-                                                    rating: rating > 5 ? '' : rating,
-                                                    restaurantName,
-                                                    location,
-                                                    price: price.trim() === '' ? '' : (price + ' HKD'),
-                                                    review,
-                                                    tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                                    image: generateRNFile(image, `${Date.now()}`),
-                                                    public: true
-                                                }
-                                            });
-                                            setIsLoading(true);
+                                        onCancel={() => {
+                                            setDatePickerOpen(false)
                                         }}
-                                        color={Color.errorText}
-                                        style={{ width: 150, marginVertical: 10 }}
-                                    >
-                                        Publicly
-                                    </Button>
+                                    />
+                                </>
+                                <View style={{ backgroundColor: Color.gray900, height: 1, width: '100%', marginVertical: 10 }}></View>
+                                <Text style={{ color: Color.gray900, fontWeight: '600', marginTop: 5, fontSize: 18 }}>Optional Fields</Text>
+                                <AirbnbRating
+                                    onFinishRating={(rating) => setRating(rating.toString())}
+                                    reviewSize={15}
+                                    size={20}
+                                />
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text>Restaurant Name:  </Text>
+                                    <TextInput
+                                        placeholderTextColor={Color.gray300}
+                                        style={styles.input}
+                                        placeholder='(ex. Starbucks)'
+                                        onChangeText={setRestaurantName}
+                                        value={restaurantName}
+                                    />
                                 </View>
-                            </>)
-                        }
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text>Location:  </Text>
+                                    <TextInput
+                                        placeholderTextColor={Color.gray300}
+                                        style={styles.input}
+                                        placeholder='(ex. HKUST)'
+                                        onChangeText={setLocation}
+                                        value={location}
+                                    />
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text>Price:  </Text>
+                                    <TextInput
+                                        placeholderTextColor={Color.gray300}
+                                        style={styles.input}
+                                        placeholder='____'
+                                        keyboardType='numeric'
+                                        onChangeText={setPrice}
+                                        value={price}
+                                    />
+                                    <Text style={{ marginLeft: 5 }}> HKD</Text>
+                                </View>
+                                <Text style={{ paddingTop: 10 }}>Review</Text>
+                                <TextInput
+                                    placeholderTextColor={Color.gray300}
+                                    style={styles.inputBorder}
+                                    placeholder='Review'
+                                    // multiline={true}
+                                    onChangeText={setReview}
+                                    value={review}
+                                />
+                                <Text style={{ marginRight: 5, paddingTop: 5 }}>Tags</Text>
+                                <TextInput
+                                    placeholderTextColor={Color.gray300}
+                                    style={styles.inputBorder}
+                                    placeholder='Please separate the tags with spaces.'
+                                    // multiline={true}
+                                    onChangeText={setTags}
+                                    value={tags}
+                                />
+                            </View>
 
-                    </Modal>
-                </Portal>
-            </Provider>
-        </SafeAreaView>
-        </TouchableWithoutFeedback>
+                        </View>
+
+                    </ScrollView>
+                    <Provider>
+                        <Portal>
+                            <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ ...styles.containerStyle, backgroundColor: isLoading ? 'transparent' : 'white' }}>
+                                {isLoading == true ? (
+                                    <CircularProgress />
+                                ) : (
+                                    <>
+                                        <Text style={{ fontSize: 15, color: Color.gray900 }}>You want this post to be published</Text>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                            <Button
+                                                mode="text"
+                                                onPress={() => {
+                                                    setPublicMode(false);
+                                                    addPost({
+                                                        variables: {
+                                                            foodName,
+                                                            ateTime: ateTime.toISOString(),
+                                                            completion,
+                                                            rating: rating > 5 ? '' : rating,
+                                                            restaurantName,
+                                                            location,
+                                                            price: price.trim() === '' ? '' : (price + ' HKD'),
+                                                            review,
+                                                            tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
+                                                            image: generateRNFile(image, `${Date.now()}`),
+                                                            public: false
+                                                        }
+                                                    });
+                                                    setIsLoading(true);
+                                                }}
+                                                color={Color.gray500}
+                                                style={{ width: 150, marginVertical: 10 }}
+                                            >
+                                                Privately
+                                            </Button>
+                                            <Button
+                                                mode="text"
+                                                onPress={() => {
+                                                    setPublicMode(true);
+                                                    addPost({
+                                                        variables: {
+                                                            foodName,
+                                                            ateTime: ateTime.toISOString(),
+                                                            completion,
+                                                            rating: rating > 5 ? '' : rating,
+                                                            restaurantName,
+                                                            location,
+                                                            price: price.trim() === '' ? '' : (price + ' HKD'),
+                                                            review,
+                                                            tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
+                                                            image: generateRNFile(image, `${Date.now()}`),
+                                                            public: true
+                                                        }
+                                                    });
+                                                    setIsLoading(true);
+                                                }}
+                                                color={Color.errorText}
+                                                style={{ width: 150, marginVertical: 10 }}
+                                            >
+                                                Publicly
+                                            </Button>
+                                        </View>
+                                    </>)
+                                }
+
+                            </Modal>
+                        </Portal>
+                    </Provider>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
 
     );

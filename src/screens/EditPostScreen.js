@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
         paddingVertical: 2
     },
     inputBorder: {
-        borderWidth: 1, 
-        borderColor: Color.gray500, 
+        borderWidth: 1,
+        borderColor: Color.gray500,
         paddingHorizontal: 6,
-        paddingVertical: 4, 
+        paddingVertical: 4,
         marginVertical: 10
     },
     inputTitle: {
@@ -116,159 +116,172 @@ function EditPostScreen({ route, navigation }) {
 
     return (
         <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
         >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView style={{ backgroundColor: 'white' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
-                <Button
-                    color='black'
-                    uppercase={false}
-                    compact
-                    style={styles.cancel}
-                    onPress={() => {
-                        navigation.goBack();
-                    }}
-                >
-                    Cancel
-                </Button>
-                <Button
-                    color={Color.green1000}
-                    uppercase={false}
-                    compact
-                    style={styles.save}
-                    onPress={() => {
-                        editPost({
-                            variables: {
-                                postId: post.id,
-                                postInput: {
-                                    foodName,
-                                    ateTime: ateTime.toISOString(),
-                                    completion,
-                                    rating: rating > 5 ? '' : rating,
-                                    restaurantName,
-                                    location,
-                                    price: price.trim() === '' ? '' : (price + ' HKD'),
-                                    review,
-                                    tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
-                                    image: post.image,
-                                    public: publicMode
-                                }
-                            }
-                        })
-                        setVisible(true);
-                    }}
-                >
-                    Save
-                </Button>
-            </View>
-            <ScrollView style={{ marginTop: 50 }}>
-                {Object.keys(errors).length > 0 && (
-                    <View style={styles.errorBox}>
-                        {Object.values(errors).map(error => (
-                            <Text key={error}>{error}</Text>
-                        ))}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <SafeAreaView style={{ backgroundColor: 'white' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+                        <Button
+                            color='black'
+                            uppercase={false}
+                            compact
+                            style={styles.cancel}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color={Color.green1000}
+                            uppercase={false}
+                            compact
+                            style={styles.save}
+                            onPress={() => {
+                                editPost({
+                                    variables: {
+                                        postId: post.id,
+                                        postInput: {
+                                            foodName,
+                                            ateTime: ateTime.toISOString(),
+                                            completion,
+                                            rating: rating > 5 ? '' : rating,
+                                            restaurantName,
+                                            location,
+                                            price: price.trim() === '' ? '' : (price + ' HKD'),
+                                            review,
+                                            tags: tags.trim() === '' ? [] : tags.trim().split(/\s+/),
+                                            image: post.image,
+                                            public: publicMode
+                                        }
+                                    }
+                                })
+                                setVisible(true);
+                            }}
+                        >
+                            Save
+                        </Button>
                     </View>
-                )}
-                <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 50 }}>
-                    <View style={{ alignItems: 'center' }}>
-                        {/* {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>} */}
-                        <Image
-                            style={{ width: 300, height: 300, margin: 10, opacity: 1 }}
-                            source={{ uri: ImageHeader + post.image }} />
-                    </View>
+                    <ScrollView style={{ marginTop: 50 }}>
+                        {Object.keys(errors).length > 0 && (
+                            <View style={styles.errorBox}>
+                                {Object.values(errors).map(error => (
+                                    <Text key={error}>{error}</Text>
+                                ))}
+                            </View>
+                        )}
+                        <View style={{ ...Styles.container, flex: 1, backgroundColor: 'white', marginBottom: 50 }}>
+                            <View style={{ alignItems: 'center' }}>
+                                {/* {!reviewPost && <Text style={{ fontWeight: '500', color: Color.gray900, fontSize: 18 }}>How much did you finish?</Text>} */}
+                                <Image
+                                    style={{ width: 300, height: 300, margin: 10, opacity: 1 }}
+                                    source={{ uri: ImageHeader + post.image }} />
+                            </View>
 
-                    <View style={{ paddingHorizontal: 20 }}>
-                        <TextInput
-                            style={[styles.input, styles.inputTitle]}
-                            placeholder='Food Name'
-                            onChangeText={setFoodName}
-                            value={foodName}
-                        />
+                            <View style={{ paddingHorizontal: 20 }}>
+                                <TextInput
+                                    placeholderTextColor={Color.gray300}
+                                    style={[styles.input, styles.inputTitle]}
+                                    placeholder='Food Name'
+                                    onChangeText={setFoodName}
+                                    value={foodName}
+                                />
 
-                        <Text style={{ marginRight: 10, color: Color.gray500 }}>{ateTime.toDateString()}</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 5 }}>
-                            <Text>Audience:  </Text>
-                            <TouchableOpacity
-                                style={{ padding: 10, backgroundColor: publicMode? Color.green300:'transparent', borderRadius: 10 }}
-                                onPress={() => {
-                                    setPublicMode(true);
-                                }}
-                            >
-                                <MaterialIcon name='public' size={30} color={Color.gray900} />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{ padding: 10, backgroundColor: !publicMode? Color.green300:'transparent', borderRadius: 10 }}
-                                onPress={() => {
-                                    setPublicMode(false);
-                                }}
-                            >
-                                <MaterialIcon name='lock' size={30} color={Color.gray900} />
-                            </TouchableOpacity>
+                                <Text style={{ marginRight: 10, color: Color.gray500 }}>{ateTime.toDateString()}</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 5 }}>
+                                    <Text>Audience:  </Text>
+                                    <TouchableOpacity
+                                        style={{ padding: 10, backgroundColor: publicMode ? Color.green300 : 'transparent', borderRadius: 10 }}
+                                        onPress={() => {
+                                            setPublicMode(true);
+                                        }}
+                                    >
+                                        <MaterialIcon name='public' size={30} color={Color.gray900} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{ padding: 10, backgroundColor: !publicMode ? Color.green300 : 'transparent', borderRadius: 10 }}
+                                        onPress={() => {
+                                            setPublicMode(false);
+                                        }}
+                                    >
+                                        <MaterialIcon name='lock' size={30} color={Color.gray900} />
+                                    </TouchableOpacity>
+                                </View>
+
+                                <View style={{ backgroundColor: Color.gray900, height: 1, width: '100%', marginVertical: 10 }}></View>
+                                <Text style={{ color: Color.gray900, fontWeight: '600', marginTop: 5, fontSize: 18 }}>Optional Fields</Text>
+                                <AirbnbRating
+                                    onFinishRating={(rating) => setRating(rating.toString())}
+                                    reviewSize={15}
+                                    size={20}
+                                    defaultRating={parseInt(rating)}
+                                />
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text>Restaurant Name:  </Text>
+                                    <TextInput
+                                        placeholderTextColor={Color.gray300}
+                                        style={styles.input}
+                                        placeholder='(ex. Starbucks)'
+                                        onChangeText={setRestaurantName}
+                                        value={restaurantName}
+                                    />
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text>Location:  </Text>
+                                    <TextInput
+                                        placeholderTextColor={Color.gray300}
+                                        style={styles.input}
+                                        placeholder='(ex. HKUST)'
+                                        onChangeText={setLocation}
+                                        value={location}
+                                    />
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text>Price:  </Text>
+                                    <TextInput
+                                        placeholderTextColor={Color.gray300}
+                                        style={styles.input}
+                                        placeholder='____'
+                                        keyboardType='numeric'
+                                        onChangeText={setPrice}
+                                        value={price}
+                                    />
+                                    <Text style={{ marginLeft: 5 }}> HKD</Text>
+                                </View>
+                                <Text style={{ paddingTop: 10 }}>Review</Text>
+                                <TextInput
+                                    placeholderTextColor={Color.gray300}
+                                    style={styles.inputBorder}
+                                    placeholder='Review'
+                                    // multiline={true}
+                                    onChangeText={setReview}
+                                    value={review}
+                                />
+                                <Text style={{ marginRight: 5, paddingTop: 5 }}>Tags</Text>
+                                <TextInput
+                                    placeholderTextColor={Color.gray300}
+                                    style={styles.inputBorder}
+                                    placeholder='Please separate the tags with spaces.'
+                                    // multiline={true}
+                                    onChangeText={setTags}
+                                    value={tags}
+                                />
+                            </View>
+
+
                         </View>
 
-                        <View style={{ backgroundColor: Color.gray900, height: 1, width: '100%', marginVertical: 10 }}></View>
-                        <Text style={{ color: Color.gray900, fontWeight: '600', marginTop: 5, fontSize: 18 }}>Optional Fields</Text>
-                        <AirbnbRating
-                            onFinishRating={(rating) => setRating(rating.toString())}
-                            reviewSize={15}
-                            size={20}
-                            defaultRating={parseInt(rating)}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Restaurant Name'
-                            onChangeText={setRestaurantName}
-                            value={restaurantName}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Location'
-                            onChangeText={setLocation}
-                            value={location}
-                        />
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='Price'
-                                keyboardType='numeric'
-                                onChangeText={setPrice}
-                                value={price}
-                            />
-                            <Text style={{ marginLeft: 5 }}> HKD</Text>
-                        </View>
-                        <TextInput
-                            style={styles.inputBorder}
-                            placeholder='Review'
-                            // multiline={true}
-                            onChangeText={setReview}
-                            value={review}
-                        />
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
-                            <Text style={{ marginRight: 5 }}>Tags</Text>
-                        </View>
-                        <TextInput
-                            style={styles.inputBorder}
-                            placeholder='Please separate the tags with spaces.'
-                            // multiline={true}
-                            onChangeText={setTags}
-                            value={tags}
-                        />
-                    </View>
-
-                </View>
-
-            </ScrollView>
-            <Provider>
-                <Portal>
-                    <Modal visible={visible} contentContainerStyle={{ ...styles.containerStyle }}>
-                        <CircularProgress />
-                    </Modal>
-                </Portal>
-            </Provider>
-        </SafeAreaView>
-        </TouchableWithoutFeedback>
+                    </ScrollView>
+                    <Provider>
+                        <Portal>
+                            <Modal visible={visible} contentContainerStyle={{ ...styles.containerStyle }}>
+                                <CircularProgress />
+                            </Modal>
+                        </Portal>
+                    </Provider>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
 
     );
