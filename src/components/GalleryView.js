@@ -2,8 +2,9 @@ import React from 'react';
 import { Image, Dimensions, StyleSheet } from 'react-native';
 import { Card, Provider } from 'react-native-paper';
 import MasonryList from '@react-native-seoul/masonry-list';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { ImageHeader } from '../utils/Constants';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ImageHeader, ThumbnailImageHeader } from '../utils/Constants';
+import ExpoFastImage from 'expo-fast-image';
 
 const styles = StyleSheet.create({
     content: {
@@ -45,6 +46,14 @@ const styles = StyleSheet.create({
     },
     text: {
         flex: 1,
+    },
+    testContainer: {
+        flexWrap: 'wrap',
+        flexDirection: 'row'
+    },
+    testItem: {
+        width: '45%',
+        margin: 5
     }
 });
 
@@ -57,58 +66,28 @@ function GalleryView({ onCardPressed, posts }) {
     const renderItem = ({ item, i }) => {
         return (
             <TouchableOpacity onPress={() => onCardPressed(item)} key={item.id}>
-                <Image
-                    source={{ uri: ImageHeader + item.image }}
+                {/* <Image
+                    source={{ uri: ThumbnailImageHeader + item.image }}
                     style={{ height: heights[i%21], margin: 5, borderRadius: 5 }}
+                /> */}
+                <ExpoFastImage
+                    uri= {ThumbnailImageHeader + item.image} 
+                    cacheKey={item.id}
+                    style={{ height: heights[i%21], margin: 5, borderRadius: 5 }} 
                 />
             </TouchableOpacity>
         )
     }
 
-    const renderCard = (post, index) => {
-        if (index % 9 == 0) {
-            return (
-                <Card
-                    onPress={() => {
-                        onCardPressed(post);
-                    }}
-                    style={styles.card_large}
-                    key={post.id}
-                >
-                    <Card.Cover
-                        source={{ uri: ImageHeader+ post.image }}
-                        style={styles.post}
-                    />
-                </Card>
-            )
-        }
-        else {
-            return (
-                <Card
-                    onPress={() => {
-                        onCardPressed(post);
-                    }}
-                    style={styles.card_small}
-                    key={post.id}
-                >
-                    <Card.Cover
-                        source={{ uri: ImageHeader+ post.image }}
-                        style={styles.post}
-                    />
-                </Card>
-            )
-        }
-    }
-
     return (
         <Provider>
             {/* <ScrollView contentContainerStyle={styles.content}>
-                {posts.map(post => (
+                {posts.map((post, i) => (
                     <Card
                         onPress={() => {
                             onCardPressed(post);
                         }}
-                        style={styles.item}
+                        style={{...styles.testItem, height: heights[i%21], borderRadius: 5}}
                         key={post.id}
                     >
                         <Card.Cover

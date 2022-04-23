@@ -33,5 +33,7 @@ export const TOKEN = 'Token';
 
 export const CalendarHeight = 360;
 export const HeaderHeight = 50;
-export const ImageHeader = 'https://huatm1fypbucket.s3.amazonaws.com/';
+// export const ImageHeader = 'https://huatm1fypbucket.s3.amazonaws.com/';
+export const ImageHeader = 'https://d3kdt7otjtif3g.cloudfront.net/';
 
+export const ThumbnailImageHeader = 'https://huatm1fypbucket-resized.s3.amazonaws.com/resized-';
