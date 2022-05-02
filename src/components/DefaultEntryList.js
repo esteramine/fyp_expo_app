@@ -5,8 +5,9 @@ import { Dimensions, Image, ScrollView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { CalendarHeight, Color, HeaderHeight, ImageHeader } from '../utils/Constants';
+import { CalendarHeight, Color, HeaderHeight, ImageHeader, ThumbnailImageHeader } from '../utils/Constants';
 import { useNavigation } from '@react-navigation/native';
+import ExpoFastImage from 'expo-fast-image';
 
 const styles = StyleSheet.create({
     thumbnail: {
@@ -77,9 +78,10 @@ function DefaultDayEntryList({ posts, showModal, deletePost, loading }) {
                                 left={props => (
                                     <View style={styles.entryImageContainer}>
                                         <View style={[styles.rectangle, { backgroundColor: Color.breakfast }]} />
-                                        <Image
+                                        <ExpoFastImage
                                             style={styles.thumbnail}
-                                            source={{ uri: ImageHeader + e.image }}
+                                            cacheKey={e.id}
+                                            source={{ uri: ThumbnailImageHeader + e.image }}
                                         />
                                     </View>
                                 )}
