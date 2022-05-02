@@ -153,6 +153,12 @@ function YNPostDetailScreen({ route, navigation }) {
     return (
         // <Text> { data } </Text>
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+            <Snackbar
+                visible={snackBarVisible}
+                onDismiss={() => setSnackBarVisible(false)}
+            >
+                {completion == 'yes' ? 'You did a great job!' : 'Thank you for being honest!'}
+            </Snackbar>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                 <Button
                     color='black'
@@ -252,7 +258,7 @@ function YNPostDetailScreen({ route, navigation }) {
                                 {post.rating}</Button>}
                         </View>
                         {post.ateTime !== '' && <Text style={styles.input}>
-                            Ate Time: {new Date(post.ateTime).toDateString()}</Text>}
+                            Ate Time: {new Date(post.ateTime).toLocaleDateString() + '  ' + new Date(post.ateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).slice(0, 5)}</Text>}
                         {post.restaurantName !== '' && <Text style={styles.input}>
                             Restaurant: {post.restaurantName}</Text>}
                         {post.location !== '' && <Text style={styles.input}>

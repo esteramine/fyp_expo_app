@@ -250,7 +250,7 @@ function PPostDetailScreen({ route, navigation }) {
                                 {post.rating}</Button>}
                         </View>
                         {post.ateTime !== '' && <Text style={styles.input}>
-                            Ate Time: {new Date(post.ateTime).toDateString()}</Text>}
+                            Ate Time: {new Date(post.ateTime).toLocaleDateString() + '  ' + new Date(post.ateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).slice(0, 5)}</Text>}
                         {post.restaurantName !== '' && <Text style={styles.input}>
                             Restaurant: {post.restaurantName}</Text>}
                         {post.location !== '' && <Text style={styles.input}>
